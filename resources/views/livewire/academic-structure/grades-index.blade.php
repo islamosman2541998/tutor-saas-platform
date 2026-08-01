@@ -8,19 +8,19 @@
         <x-ui.button wire:click="create" class="w-auto px-4">+ صف جديد</x-ui.button>
     </div>
 
-    <div class="overflow-x-auto rounded-2xl border border-slate-200 bg-white">
+    <div class="overflow-x-auto rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800">
         <table class="w-full min-w-[480px] text-right text-sm">
-            <thead class="border-b border-slate-200 bg-slate-50 text-slate-500">
+            <thead class="border-b border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/40 text-slate-500 dark:text-slate-400">
                 <tr>
                     <th class="px-4 py-3 font-medium">الصف</th>
                     <th class="px-4 py-3 font-medium">الحالة</th>
                     <th class="px-4 py-3 font-medium">إجراءات</th>
                 </tr>
             </thead>
-            <tbody class="divide-y divide-slate-100">
+            <tbody class="divide-y divide-slate-100 dark:divide-slate-700">
                 @forelse ($grades as $grade)
                     <tr wire:key="grade-{{ $grade->id }}">
-                        <td class="px-4 py-3 font-medium text-slate-900">{{ $grade->name }}</td>
+                        <td class="px-4 py-3 font-medium text-slate-900 dark:text-slate-100">{{ $grade->name }}</td>
                         <td class="px-4 py-3">
                             @if ($grade->is_active)
                                 <x-ui.badge color="green">مفعّل</x-ui.badge>
@@ -30,7 +30,7 @@
                         </td>
                         <td class="px-4 py-3">
                             <div class="flex gap-2">
-                                <button wire:click="edit({{ $grade->id }})" class="rounded-lg border border-slate-300 px-2.5 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-50">
+                                <button wire:click="edit({{ $grade->id }})" class="rounded-lg border border-slate-300 dark:border-slate-600 px-2.5 py-1.5 text-xs font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700/50">
                                     تعديل
                                 </button>
                                 <button wire:click="askDelete({{ $grade->id }})" class="rounded-lg border border-red-200 px-2.5 py-1.5 text-xs font-medium text-red-600 hover:bg-red-50">
@@ -41,7 +41,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="3" class="px-4 py-10 text-center text-slate-400">
+                        <td colspan="3" class="px-4 py-10 text-center text-slate-400 dark:text-slate-500">
                             لا توجد صفوف في هذه المرحلة بعد.
                         </td>
                     </tr>
@@ -54,8 +54,8 @@
         <form wire:submit="save" class="space-y-4">
             <x-ui.input name="name" label="اسم الصف" wire:model="name" :error="$errors->first('name')" placeholder="مثال: الصف الأول الإعدادي" />
 
-            <label class="flex items-center gap-2 text-sm text-slate-600">
-                <input type="checkbox" wire:model="is_active" class="rounded border-slate-300 text-indigo-600">
+            <label class="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
+                <input type="checkbox" wire:model="is_active" class="rounded border-slate-300 dark:border-slate-600 text-indigo-600">
                 صف مفعّل
             </label>
 

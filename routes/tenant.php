@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Billing\PaymentReceiptController;
 use App\Http\Controllers\Reports\ReportDownloadController;
 use App\Http\Controllers\Tenancy\PendingReviewController;
+use App\Http\Controllers\Tenancy\SubscriptionExpiredController;
 use App\Http\Controllers\Website\PublicPageController;
 use App\Http\Controllers\Website\PublicPostController;
 use App\Http\Controllers\Website\PublicTipsIndexController;
@@ -31,8 +32,10 @@ use App\Livewire\Groups\GroupsIndex;
 use App\Livewire\Reports\ReportsIndex;
 use App\Livewire\Settings\DashboardAppearanceForm;
 use App\Livewire\Settings\LoginPageAppearanceForm;
+use App\Livewire\Activity\ActivityLogIndex;
 use App\Livewire\Students\StudentProfile;
 use App\Livewire\Students\StudentsIndex;
+use App\Livewire\Users\UsersIndex;
 use App\Livewire\Website\NavbarItemsIndex;
 use App\Livewire\Website\PagesIndex;
 use App\Livewire\Website\PostsIndex;
@@ -50,7 +53,7 @@ use Illuminate\Support\Facades\Route;
  * resolveFromRoute()/resolveFromSubdomain() methods.
  */
 Route::prefix('teacher/{tenant}')
-    ->middleware(['tenant', 'tenant.active'])
+    ->middleware(['tenant', 'tenant.active', 'tenant.subscription'])
     ->name('tenant.')
     ->group(function () {
         // Public marketing homepage — no auth, no guest requirement; the
@@ -72,6 +75,10 @@ Route::prefix('teacher/{tenant}')
         // route while their tenant is still pending) instead of the
         // dashboard — see EnsureTenantIsActive.
         Route::get('/pending-review', PendingReviewController::class)->name('pending-review');
+
+        // Shown instead of the dashboard once the tenant's subscription has
+        // lapsed — see EnsureSubscriptionIsValid.
+        Route::get('/subscription-expired', SubscriptionExpiredController::class)->name('subscription-expired');
 
         Route::middleware('guest')->group(function () {
             Route::get('/login', TenantLogin::class)->name('login');
@@ -124,6 +131,9 @@ Route::prefix('teacher/{tenant}')
 
             Route::get('/appearance/dashboard', DashboardAppearanceForm::class)->name('appearance.dashboard');
             Route::get('/appearance/login', LoginPageAppearanceForm::class)->name('appearance.login');
+
+            Route::get('/users', UsersIndex::class)->name('users');
+            Route::get('/activity-log', ActivityLogIndex::class)->name('activity-log');
 
             Route::post('/logout', LogoutController::class)->name('logout');
         });

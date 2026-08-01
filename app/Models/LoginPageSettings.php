@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Storage;
 
 #[Fillable([
     'background_image', 'background_color', 'overlay_enabled', 'overlay_opacity',
-    'card_position', 'card_bg_color', 'card_opacity', 'card_blur', 'border_radius', 'shadow_style',
+    'card_position', 'card_bg_color', 'card_opacity', 'card_blur', 'border_radius', 'shadow_style', 'theme_mode',
     'title_color', 'text_color', 'label_color', 'input_bg_color', 'input_text_color',
     'input_border_color', 'input_focus_color', 'button_color', 'button_text_color', 'button_hover_color',
     'show_logo', 'welcome_title', 'welcome_description', 'side_image',
@@ -91,6 +91,7 @@ class LoginPageSettings extends Model
             'card_blur' => false,
             'border_radius' => 16,
             'shadow_style' => 'medium',
+            'theme_mode' => 'light',
             'title_color' => '#0f172a',
             'text_color' => '#475569',
             'label_color' => '#334155',

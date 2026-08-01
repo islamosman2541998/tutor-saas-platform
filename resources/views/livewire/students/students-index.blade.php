@@ -2,7 +2,7 @@
     <div class="mb-6 flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
         <div>
             <h1 class="text-2xl font-bold">الطلاب</h1>
-            <p class="text-sm text-slate-500">إدارة بيانات الطلاب المسجلين</p>
+            <p class="text-sm text-slate-500 dark:text-slate-400">إدارة بيانات الطلاب المسجلين</p>
         </div>
 
         <div class="flex flex-col gap-2 sm:flex-row">
@@ -10,9 +10,9 @@
                 type="text"
                 wire:model.live.debounce.400ms="search"
                 placeholder="ابحث بالاسم أو الكود أو الهاتف..."
-                class="rounded-lg border border-slate-300 px-3.5 py-2 text-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200"
+                class="rounded-lg border border-slate-300 dark:border-slate-600 px-3.5 py-2 text-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200"
             >
-            <select wire:model.live="statusFilter" class="rounded-lg border border-slate-300 px-3.5 py-2 text-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200">
+            <select wire:model.live="statusFilter" class="rounded-lg border border-slate-300 dark:border-slate-600 px-3.5 py-2 text-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200">
                 <option value="">كل الحالات</option>
                 <option value="active">نشط</option>
                 <option value="paused">موقوف</option>
@@ -24,9 +24,9 @@
         </div>
     </div>
 
-    <div class="overflow-x-auto rounded-2xl border border-slate-200 bg-white">
+    <div class="overflow-x-auto rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800">
         <table class="w-full min-w-[860px] text-right text-sm">
-            <thead class="border-b border-slate-200 bg-slate-50 text-slate-500">
+            <thead class="border-b border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/40 text-slate-500 dark:text-slate-400">
                 <tr>
                     <th class="px-4 py-3 font-medium">الطالب</th>
                     <th class="px-4 py-3 font-medium">التواصل</th>
@@ -35,7 +35,7 @@
                     <th class="px-4 py-3 font-medium">إجراءات</th>
                 </tr>
             </thead>
-            <tbody class="divide-y divide-slate-100">
+            <tbody class="divide-y divide-slate-100 dark:divide-slate-700">
                 @forelse ($students as $student)
                     <tr wire:key="student-{{ $student->id }}">
                         <td class="px-4 py-3">
@@ -48,14 +48,14 @@
                                     </span>
                                 @endif
                                 <div>
-                                    <a href="{{ route('tenant.students.show', ['tenant' => $currentTenant->slug, 'student' => $student->id]) }}" class="font-medium text-slate-900 hover:text-indigo-600 hover:underline">
+                                    <a href="{{ route('tenant.students.show', ['tenant' => $currentTenant->slug, 'student' => $student->id]) }}" class="font-medium text-slate-900 dark:text-slate-100 hover:text-indigo-600 hover:underline">
                                         {{ $student->name }}
                                     </a>
-                                    <div class="text-xs text-slate-500">{{ $student->student_code }}</div>
+                                    <div class="text-xs text-slate-500 dark:text-slate-400">{{ $student->student_code }}</div>
                                 </div>
                             </div>
                         </td>
-                        <td class="px-4 py-3 text-slate-600">
+                        <td class="px-4 py-3 text-slate-600 dark:text-slate-400">
                             {{ $student->primaryContactPhone() ?: $student->email ?: '—' }}
                             @if ($student->whatsappUrl())
                                 <a href="{{ $student->whatsappUrl() }}" target="_blank" class="ms-1 text-emerald-600 hover:underline">واتساب</a>
@@ -67,10 +67,10 @@
                             @endphp
                             <x-ui.badge :color="$statusColors[$student->status]">{{ $student->statusLabel() }}</x-ui.badge>
                         </td>
-                        <td class="px-4 py-3 text-slate-600">{{ $student->joined_at->format('Y-m-d') }}</td>
+                        <td class="px-4 py-3 text-slate-600 dark:text-slate-400">{{ $student->joined_at->format('Y-m-d') }}</td>
                         <td class="px-4 py-3">
                             <div class="flex flex-wrap gap-2">
-                                <button wire:click="edit({{ $student->id }})" class="rounded-lg border border-slate-300 px-2.5 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-50">
+                                <button wire:click="edit({{ $student->id }})" class="rounded-lg border border-slate-300 dark:border-slate-600 px-2.5 py-1.5 text-xs font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700/50">
                                     تعديل
                                 </button>
                                 @if ($student->status === 'active')
@@ -87,7 +87,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="5" class="px-4 py-10 text-center text-slate-400">
+                        <td colspan="5" class="px-4 py-10 text-center text-slate-400 dark:text-slate-500">
                             لا يوجد طلاب بعد. أضف أول طالب لتبدأ.
                         </td>
                     </tr>
@@ -123,8 +123,8 @@
             <div class="grid grid-cols-2 gap-4">
                 <x-ui.input name="date_of_birth" type="date" label="تاريخ الميلاد (اختياري)" wire:model="date_of_birth" />
                 <div>
-                    <label class="mb-1.5 block text-sm font-medium text-slate-700">النوع (اختياري)</label>
-                    <select wire:model="gender" class="block w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200">
+                    <label class="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">النوع (اختياري)</label>
+                    <select wire:model="gender" class="block w-full rounded-lg border border-slate-300 dark:border-slate-600 px-3.5 py-2.5 text-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200">
                         <option value="">غير محدد</option>
                         <option value="male">ذكر</option>
                         <option value="female">أنثى</option>
@@ -142,10 +142,10 @@
             <x-ui.input name="address" label="العنوان (اختياري)" wire:model="address" />
 
             <div>
-                <label class="mb-1.5 block text-sm font-medium text-slate-700">صورة الطالب (اختياري)</label>
-                <input type="file" wire:model="image" accept="image/*" class="block w-full text-sm text-slate-600">
+                <label class="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">صورة الطالب (اختياري)</label>
+                <input type="file" wire:model="image" accept="image/*" class="block w-full text-sm text-slate-600 dark:text-slate-400">
                 @error('image') <p class="mt-1.5 text-sm text-red-600">{{ $message }}</p> @enderror
-                <div wire:loading wire:target="image" class="mt-1 text-xs text-slate-400">جارٍ الرفع...</div>
+                <div wire:loading wire:target="image" class="mt-1 text-xs text-slate-400 dark:text-slate-500">جارٍ الرفع...</div>
                 @if ($image)
                     <img src="{{ $image->temporaryUrl() }}" class="mt-2 h-16 w-16 rounded-full object-cover">
                 @elseif ($existingImagePath)
@@ -154,8 +154,8 @@
             </div>
 
             <div>
-                <label class="mb-1.5 block text-sm font-medium text-slate-700">ملاحظات (اختياري)</label>
-                <textarea wire:model="notes" rows="2" class="block w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200"></textarea>
+                <label class="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">ملاحظات (اختياري)</label>
+                <textarea wire:model="notes" rows="2" class="block w-full rounded-lg border border-slate-300 dark:border-slate-600 px-3.5 py-2.5 text-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200"></textarea>
             </div>
 
             <div class="flex gap-3 pt-2">

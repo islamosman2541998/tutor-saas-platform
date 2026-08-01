@@ -2,6 +2,7 @@
 
 namespace App\Exports;
 
+use App\Exports\Concerns\ExportsPhoneLikeStringsAsText;
 use App\Models\MonthlyDue;
 use App\QueryObjects\Reports\MonthlyDuesReportQuery;
 use Illuminate\Database\Eloquent\Builder;
@@ -9,12 +10,13 @@ use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
+use Maatwebsite\Excel\Concerns\WithCustomValueBinder;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 
-class MonthlyDuesExport implements FromQuery, ShouldAutoSize, WithChunkReading, WithHeadings, WithMapping
+class MonthlyDuesExport implements FromQuery, ShouldAutoSize, WithChunkReading, WithCustomValueBinder, WithHeadings, WithMapping
 {
-    use Exportable;
+    use Exportable, ExportsPhoneLikeStringsAsText;
 
     public function __construct(protected array $filters = []) {}
 

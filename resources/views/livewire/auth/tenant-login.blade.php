@@ -7,7 +7,7 @@
     <p class="mb-6 text-sm login-text">{{ $currentTenant->teacher_name ?? '' }}</p>
 
     @if (session('status'))
-        <div class="mb-4 rounded-lg bg-emerald-50 px-3.5 py-2.5 text-sm text-emerald-700">{{ session('status') }}</div>
+        <div class="mb-4 rounded-lg bg-emerald-50 px-3.5 py-2.5 text-sm text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400">{{ session('status') }}</div>
     @endif
 
     <form wire:submit="login" class="space-y-4">
@@ -34,7 +34,7 @@
             <div class="flex items-center justify-between text-sm login-text">
                 @if ($loginSettings->remember_me_enabled)
                     <label class="flex items-center gap-2">
-                        <input type="checkbox" wire:model="remember" class="rounded border-slate-300 text-indigo-600 focus:ring-indigo-400">
+                        <input type="checkbox" wire:model="remember" class="rounded border-slate-300 text-indigo-600 focus:ring-indigo-400 dark:border-slate-600">
                         تذكرني
                     </label>
                 @else

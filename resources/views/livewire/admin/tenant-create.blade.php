@@ -1,12 +1,12 @@
 <div>
     <div class="mb-6">
         <h1 class="text-2xl font-bold">إنشاء حساب مدرس جديد</h1>
-        <p class="mt-1 text-sm text-slate-500">للحسابات اللي بتوصلك بياناتها مباشرة — بيتفعّل فورًا من غير مراجعة.</p>
+        <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">للحسابات اللي بتوصلك بياناتها مباشرة — بيتفعّل فورًا من غير مراجعة.</p>
     </div>
 
     <form wire:submit="save" class="max-w-2xl space-y-6">
-        <div class="rounded-2xl border border-slate-200 bg-white p-5">
-            <h2 class="mb-4 text-sm font-bold text-slate-700">بيانات الحساب</h2>
+        <div class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-5">
+            <h2 class="mb-4 text-sm font-bold text-slate-700 dark:text-slate-300">بيانات الحساب</h2>
             <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <x-ui.input name="teacher_name" label="اسم المدرس" wire:model="teacher_name" :error="$errors->first('teacher_name')" autofocus />
                 <x-ui.input name="activity_name" label="اسم النشاط أو السنتر" wire:model="activity_name" :error="$errors->first('activity_name')" />
@@ -17,12 +17,12 @@
             </div>
         </div>
 
-        <div class="rounded-2xl border border-slate-200 bg-white p-5">
-            <h2 class="mb-4 text-sm font-bold text-slate-700">الباقة والاشتراك</h2>
+        <div class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-5">
+            <h2 class="mb-4 text-sm font-bold text-slate-700 dark:text-slate-300">الباقة والاشتراك</h2>
             <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div>
-                    <label class="mb-1.5 block text-sm font-medium text-slate-700">الباقة</label>
-                    <select wire:model.live="plan_id" class="block w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200">
+                    <label class="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">الباقة</label>
+                    <select wire:model.live="plan_id" class="block w-full rounded-lg border border-slate-300 dark:border-slate-600 px-3.5 py-2.5 text-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200">
                         <option value="">اختر باقة</option>
                         @foreach ($plans as $plan)
                             <option value="{{ $plan->id }}">{{ $plan->name }} ({{ $plan->monthly_price }} شهريًا)</option>
@@ -32,8 +32,8 @@
                 </div>
 
                 <div>
-                    <label class="mb-1.5 block text-sm font-medium text-slate-700">دورة الفوترة</label>
-                    <select wire:model.live="billing_cycle" class="block w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200">
+                    <label class="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">دورة الفوترة</label>
+                    <select wire:model.live="billing_cycle" class="block w-full rounded-lg border border-slate-300 dark:border-slate-600 px-3.5 py-2.5 text-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200">
                         <option value="monthly">شهري</option>
                         <option value="yearly">سنوي</option>
                     </select>
@@ -49,7 +49,7 @@
                 <span wire:loading.remove wire:target="save">إنشاء الحساب</span>
                 <span wire:loading wire:target="save">جارٍ الإنشاء...</span>
             </x-ui.button>
-            <a href="{{ route('admin.tenants') }}" wire:navigate class="inline-flex items-center rounded-lg border border-slate-300 px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50">
+            <a href="{{ route('admin.tenants') }}" wire:navigate class="inline-flex items-center rounded-lg border border-slate-300 dark:border-slate-600 px-4 py-2.5 text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700/50">
                 إلغاء
             </a>
         </div>

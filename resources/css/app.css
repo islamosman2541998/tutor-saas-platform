@@ -3,6 +3,8 @@
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
     --font-sans: 'Cairo', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
@@ -10,4 +12,20 @@
 
 [x-cloak] {
     display: none !important;
+}
+
+/* Tailwind v4's preflight (unlike v3) no longer sets cursor:pointer on
+   buttons by default, leaving every wire:click button showing the plain
+   text-select arrow — restore the expected clickable-affordance cursor. */
+button:not(:disabled),
+[type='button']:not(:disabled),
+[type='submit']:not(:disabled) {
+    cursor: pointer;
+}
+
+/* Smooths color-scheme changes (bg/border/text) when the theme toggle
+   flips the .dark class, without animating layout-affecting properties. */
+* {
+    transition-property: background-color, border-color, color;
+    transition-duration: 150ms;
 }

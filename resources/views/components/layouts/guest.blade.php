@@ -13,12 +13,22 @@
     };
 @endphp
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" data-default-theme="{{ $loginSettings->theme_mode ?? 'user_choice' }}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ $title ?? config('app.name') }}</title>
+    {{-- Must run before any stylesheet paints — see app.blade.php for the
+         matching copy and resources/js/theme.js for the toggle button. --}}
+    <script>
+        (function () {
+            var stored = localStorage.getItem('theme');
+            var mode = stored || document.documentElement.dataset.defaultTheme || 'user_choice';
+            var dark = mode === 'dark' || (mode !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+            document.documentElement.classList.toggle('dark', dark);
+        })();
+    </script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
     <style>
@@ -26,6 +36,19 @@
             @foreach ($loginSettings->cssVariables() as $name => $value)
                 {{ $name }}: {{ $value }};
             @endforeach
+        }
+        /* Surface colors get a fixed dark palette; button/focus colors stay
+           on the tenant's brand choice in both modes (see app.blade.php's
+           equivalent .dark block for the same reasoning). */
+        .dark {
+            --login-bg-color: #0f172a;
+            --login-card-bg: #1e293b;
+            --login-title: #f1f5f9;
+            --login-text: #94a3b8;
+            --login-label: #cbd5e1;
+            --login-input-bg: #334155;
+            --login-input-text: #f1f5f9;
+            --login-input-border: #475569;
         }
         /* Scoped override for the shared x-ui.input styling — deliberately
            not a global x-ui.input refactor (that component is used all
@@ -56,6 +79,16 @@
     </style>
 </head>
 <body class="min-h-screen font-sans antialiased" style="background: var(--login-bg-color);">
+    <button
+        type="button"
+        onclick="toggleTheme()"
+        class="fixed end-4 top-4 z-20 rounded-full bg-white/80 p-2.5 text-slate-500 shadow-sm backdrop-blur transition hover:bg-white dark:bg-slate-800/80 dark:text-slate-400 dark:hover:bg-slate-800"
+        aria-label="تبديل الوضع الليلي/النهاري"
+    >
+        <x-ui.icon name="moon" class="h-5 w-5 dark:hidden" />
+        <x-ui.icon name="sun" class="hidden h-5 w-5 dark:block" />
+    </button>
+
     <div class="relative flex min-h-screen flex-col items-center px-4 py-10 md:flex-row" style="{{ $justify }}">
         @if ($loginSettings->backgroundImageUrl())
             <div class="absolute inset-0" style="background: url('{{ $loginSettings->backgroundImageUrl() }}') center/cover;"></div>

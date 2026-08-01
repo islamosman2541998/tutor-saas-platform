@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Middleware\EnsureIsSuperAdmin;
+use App\Http\Middleware\EnsureSubscriptionIsValid;
 use App\Http\Middleware\EnsureTenantIsActive;
 use App\Http\Middleware\ResolveCentralContext;
 use App\Http\Middleware\ResolveTenant;
@@ -21,6 +22,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'tenant' => ResolveTenant::class,
             'central' => ResolveCentralContext::class,
             'tenant.active' => EnsureTenantIsActive::class,
+            'tenant.subscription' => EnsureSubscriptionIsValid::class,
             'super_admin' => EnsureIsSuperAdmin::class,
         ]);
 

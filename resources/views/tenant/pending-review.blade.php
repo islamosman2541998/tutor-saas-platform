@@ -1,6 +1,6 @@
 <x-layouts.guest :title="'قيد المراجعة'">
-    <h1 class="mb-1 text-xl font-bold">بياناتك قيد المراجعة</h1>
-    <p class="mb-6 text-sm text-slate-500">
+    <h1 class="mb-1 text-xl font-bold login-title">بياناتك قيد المراجعة</h1>
+    <p class="mb-6 text-sm login-text">
         شكرًا لتسجيلك! فريق المنصة بيراجع بياناتك دلوقتي، وهيتم تفعيل حسابك بعد الموافقة عليه. هنبلغك فور تفعيل الحساب.
     </p>
 

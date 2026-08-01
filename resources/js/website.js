@@ -45,7 +45,12 @@ function initScrollReveal() {
                 }
             });
         },
-        { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
+        // Triggers as soon as a sliver of the element enters, with a
+        // positive bottom margin extending the trigger zone below the
+        // viewport — the reveal transition is intentionally slow (see
+        // head-styles.blade.php), so it needs to start early to actually
+        // finish playing while the section is still in view.
+        { threshold: 0.02, rootMargin: '0px 0px 100px 0px' }
     );
 
     targets.forEach((el) => observer.observe(el));
@@ -123,6 +128,9 @@ function initHeroSlider() {
         index = ((i % slides.length) + slides.length) % slides.length;
         track.style.transform = `translateX(-${index * 100}%)`;
         dots.forEach((dot, di) => dot.classList.toggle('is-active', di === index));
+        // Drives the Ken Burns zoom (see .site-hero-slide.is-active img in
+        // head-styles.blade.php) — only the active slide's image zooms.
+        slides.forEach((slide, si) => slide.classList.toggle('is-active', si === index));
     };
 
     const next = () => goTo(index + 1);

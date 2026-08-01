@@ -33,6 +33,7 @@ class TenantPermissions
             'website.manage',
             'settings.manage',
             'users.manage',
+            'activity.view',
         ];
     }
 
@@ -56,5 +57,28 @@ class TenantPermissions
                 'website.manage',
             ],
         ];
+    }
+
+    /**
+     * Roles a Teacher Owner can hand out to a staff member. TEACHER_OWNER
+     * itself is excluded — it's assigned exactly once, at tenant
+     * registration (see RegisterTenantAction), never through the staff form.
+     *
+     * @return array<int, string>
+     */
+    public static function assignableRoles(): array
+    {
+        return [self::ASSISTANT, self::ACCOUNTANT, self::CONTENT_MANAGER];
+    }
+
+    public static function roleLabel(string $role): string
+    {
+        return match ($role) {
+            self::TEACHER_OWNER => 'صاحب الحساب',
+            self::ASSISTANT => 'مساعد',
+            self::ACCOUNTANT => 'محاسب',
+            self::CONTENT_MANAGER => 'مسؤول المحتوى',
+            default => $role,
+        };
     }
 }

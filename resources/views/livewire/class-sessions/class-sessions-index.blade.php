@@ -7,7 +7,7 @@
 
         <div class="flex flex-col gap-2 sm:flex-row sm:items-center">
             <div class="flex items-center gap-2">
-                <select wire:model="weeksAhead" class="rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200">
+                <select wire:model="weeksAhead" class="rounded-lg border border-slate-300 dark:border-slate-600 px-3 py-2 text-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200">
                     <option value="2">أسبوعين</option>
                     <option value="4">4 أسابيع</option>
                     <option value="8">8 أسابيع</option>
@@ -18,9 +18,9 @@
         </div>
     </div>
 
-    <div class="overflow-x-auto rounded-2xl border border-slate-200 bg-white">
+    <div class="overflow-x-auto rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800">
         <table class="w-full min-w-[720px] text-right text-sm">
-            <thead class="border-b border-slate-200 bg-slate-50 text-slate-500">
+            <thead class="border-b border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/40 text-slate-500 dark:text-slate-400">
                 <tr>
                     <th class="px-4 py-3 font-medium">التاريخ</th>
                     <th class="px-4 py-3 font-medium">الوقت</th>
@@ -28,11 +28,11 @@
                     <th class="px-4 py-3 font-medium">إجراءات</th>
                 </tr>
             </thead>
-            <tbody class="divide-y divide-slate-100">
+            <tbody class="divide-y divide-slate-100 dark:divide-slate-700">
                 @forelse ($sessions as $session)
                     <tr wire:key="session-{{ $session->id }}">
-                        <td class="px-4 py-3 font-medium text-slate-900">{{ $session->scheduled_date->format('Y-m-d') }}</td>
-                        <td class="px-4 py-3 text-slate-600">{{ substr($session->expected_start_time, 0, 5) }} - {{ substr($session->expected_end_time, 0, 5) }}</td>
+                        <td class="px-4 py-3 font-medium text-slate-900 dark:text-slate-100">{{ $session->scheduled_date->format('Y-m-d') }}</td>
+                        <td class="px-4 py-3 text-slate-600 dark:text-slate-400">{{ substr($session->expected_start_time, 0, 5) }} - {{ substr($session->expected_end_time, 0, 5) }}</td>
                         <td class="px-4 py-3">
                             @php
                                 $colors = ['scheduled' => 'slate', 'open' => 'green', 'completed' => 'indigo', 'cancelled' => 'red'];
@@ -48,7 +48,7 @@
                                 @endif
 
                                 @if ($session->status === 'scheduled')
-                                    <button wire:click="edit({{ $session->id }})" class="rounded-lg border border-slate-300 px-2.5 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-50">
+                                    <button wire:click="edit({{ $session->id }})" class="rounded-lg border border-slate-300 dark:border-slate-600 px-2.5 py-1.5 text-xs font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700/50">
                                         تعديل
                                     </button>
                                     <button wire:click="openCancelForm({{ $session->id }})" class="rounded-lg border border-red-200 px-2.5 py-1.5 text-xs font-medium text-red-600 hover:bg-red-50">
@@ -60,7 +60,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="4" class="px-4 py-10 text-center text-slate-400">
+                        <td colspan="4" class="px-4 py-10 text-center text-slate-400 dark:text-slate-500">
                             لا توجد حصص بعد. استخدم "توليد من الجدول" لإنشاء الحصص تلقائيًا حسب مواعيد المجموعة.
                         </td>
                     </tr>
@@ -82,8 +82,8 @@
             <x-ui.input name="lesson_topic" label="موضوع الدرس (اختياري)" wire:model="lesson_topic" />
 
             <div>
-                <label class="mb-1.5 block text-sm font-medium text-slate-700">ملاحظات (اختياري)</label>
-                <textarea wire:model="notes" rows="2" class="block w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200"></textarea>
+                <label class="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">ملاحظات (اختياري)</label>
+                <textarea wire:model="notes" rows="2" class="block w-full rounded-lg border border-slate-300 dark:border-slate-600 px-3.5 py-2.5 text-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200"></textarea>
             </div>
 
             <div class="flex gap-3 pt-2">
@@ -96,8 +96,8 @@
     <x-ui.modal :show="$showCancelForm" title="إلغاء الحصة" on-close="$set('showCancelForm', false)">
         <form wire:submit="cancel" class="space-y-4">
             <div>
-                <label class="mb-1.5 block text-sm font-medium text-slate-700">سبب الإلغاء</label>
-                <textarea wire:model="cancellation_reason" rows="3" class="block w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200" placeholder="مثال: ظرف طارئ للمدرس"></textarea>
+                <label class="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">سبب الإلغاء</label>
+                <textarea wire:model="cancellation_reason" rows="3" class="block w-full rounded-lg border border-slate-300 dark:border-slate-600 px-3.5 py-2.5 text-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200" placeholder="مثال: ظرف طارئ للمدرس"></textarea>
                 @error('cancellation_reason') <p class="mt-1.5 text-sm text-red-600">{{ $message }}</p> @enderror
             </div>
 

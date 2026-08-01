@@ -37,10 +37,10 @@
                                             <div class="absolute inset-0" style="background: linear-gradient(0deg, rgba(15,23,42,.75), rgba(15,23,42,.35) 55%, rgba(15,23,42,.15));"></div>
 
                                             @if ($slide->title || $slide->description || ($slide->button_text && $slide->button_url))
-                                                <div class="relative z-10 flex h-full items-center justify-end px-6 sm:px-16">
+                                                <div class="relative z-10 flex h-full items-center justify-end pl-6 pr-20 sm:pl-16 sm:pr-32">
                                                     <div class="max-w-xl text-center text-white sm:text-right" dir="rtl">
                                                         @if ($slide->title)
-                                                            <h1 class="text-3xl font-bold leading-tight sm:text-5xl" style="font-size: var(--site-heading-size);">{{ $slide->title }}</h1>
+                                                            <h1 class="site-hero-title text-3xl font-bold leading-tight sm:text-5xl" style="font-size: var(--site-heading-size);">{{ $slide->title }}</h1>
                                                         @endif
                                                         @if ($slide->description)
                                                             <p class="mx-auto mt-4 max-w-lg text-base leading-8 opacity-90 sm:mx-0">{{ $slide->description }}</p>
@@ -152,7 +152,7 @@
                     @break
 
                 @case ('subjects_grades')
-                    <section id="subjects_grades" data-reveal class="mx-auto max-w-5xl px-4 py-16">
+                    <section id="subjects_grades" data-reveal="left" class="mx-auto max-w-5xl px-4 py-16">
                         <h2 class="text-center text-2xl font-bold sm:text-3xl" style="font-size: var(--site-heading-size);">{{ $section->displayTitle() }}</h2>
 
                         @if ($publicSubjects->isNotEmpty())
@@ -195,7 +195,7 @@
                     @break
 
                 @case ('groups')
-                    <section id="groups" data-reveal class="px-4 py-16" style="background: color-mix(in srgb, var(--site-primary) 6%, transparent);">
+                    <section id="groups" data-reveal="right" class="px-4 py-16" style="background: color-mix(in srgb, var(--site-primary) 6%, transparent);">
                         <div class="mx-auto max-w-5xl">
                             <h2 class="text-center text-2xl font-bold sm:text-3xl" style="font-size: var(--site-heading-size);">{{ $section->displayTitle() }}</h2>
 
@@ -231,7 +231,7 @@
                     @break
 
                 @case ('tips')
-                    <section id="tips" data-reveal class="mx-auto max-w-5xl px-4 py-16">
+                    <section id="tips" data-reveal="left" class="mx-auto max-w-5xl px-4 py-16">
                         <div class="flex items-center justify-between">
                             <h2 class="text-2xl font-bold sm:text-3xl" style="font-size: var(--site-heading-size);">{{ $section->displayTitle() }}</h2>
                             @if ($tips->isNotEmpty())
@@ -271,7 +271,7 @@
                     @break
 
                 @case ('testimonials')
-                    <section id="testimonials" data-reveal class="px-4 py-16" style="background: color-mix(in srgb, var(--site-primary) 6%, transparent);">
+                    <section id="testimonials" data-reveal="right" class="px-4 py-16" style="background: color-mix(in srgb, var(--site-primary) 6%, transparent);">
                         <div class="mx-auto max-w-5xl">
                             <h2 class="text-center text-2xl font-bold sm:text-3xl" style="font-size: var(--site-heading-size);">{{ $section->displayTitle() }}</h2>
 

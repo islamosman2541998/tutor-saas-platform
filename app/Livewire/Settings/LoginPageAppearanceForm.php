@@ -32,6 +32,8 @@ class LoginPageAppearanceForm extends Component
 
     public string $shadow_style = 'medium';
 
+    public string $theme_mode = 'light';
+
     public string $title_color = '#0f172a';
 
     public string $text_color = '#475569';
@@ -86,6 +88,7 @@ class LoginPageAppearanceForm extends Component
             $this->card_blur = $settings->card_blur;
             $this->border_radius = (string) $settings->border_radius;
             $this->shadow_style = $settings->shadow_style;
+            $this->theme_mode = $settings->theme_mode;
             $this->title_color = $settings->title_color;
             $this->text_color = $settings->text_color;
             $this->label_color = $settings->label_color;
@@ -118,6 +121,7 @@ class LoginPageAppearanceForm extends Component
             'card_opacity' => ['required', 'numeric', 'min:0', 'max:1'],
             'border_radius' => ['required', 'integer', 'min:0', 'max:32'],
             'shadow_style' => ['required', 'in:none,soft,medium,strong'],
+            'theme_mode' => ['required', 'in:light,dark,user_choice'],
             'title_color' => ['required', 'string', 'max:20'],
             'text_color' => ['required', 'string', 'max:20'],
             'label_color' => ['required', 'string', 'max:20'],

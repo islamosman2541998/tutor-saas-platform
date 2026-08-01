@@ -2,15 +2,15 @@
     <div class="mb-6 flex items-center justify-between">
         <div>
             <h1 class="text-2xl font-bold">السنوات الدراسية</h1>
-            <p class="text-sm text-slate-500">عام دراسي واحد فقط يكون "حاليًا" في نفس الوقت</p>
+            <p class="text-sm text-slate-500 dark:text-slate-400">عام دراسي واحد فقط يكون "حاليًا" في نفس الوقت</p>
         </div>
 
         <x-ui.button wire:click="create" class="w-auto px-4">+ عام دراسي جديد</x-ui.button>
     </div>
 
-    <div class="overflow-x-auto rounded-2xl border border-slate-200 bg-white">
+    <div class="overflow-x-auto rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800">
         <table class="w-full min-w-[640px] text-right text-sm">
-            <thead class="border-b border-slate-200 bg-slate-50 text-slate-500">
+            <thead class="border-b border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/40 text-slate-500 dark:text-slate-400">
                 <tr>
                     <th class="px-4 py-3 font-medium">الاسم</th>
                     <th class="px-4 py-3 font-medium">الفترة</th>
@@ -18,16 +18,16 @@
                     <th class="px-4 py-3 font-medium">إجراءات</th>
                 </tr>
             </thead>
-            <tbody class="divide-y divide-slate-100">
+            <tbody class="divide-y divide-slate-100 dark:divide-slate-700">
                 @forelse ($years as $year)
                     <tr wire:key="year-{{ $year->id }}">
                         <td class="px-4 py-3">
-                            <div class="font-medium text-slate-900">{{ $year->name }}</div>
+                            <div class="font-medium text-slate-900 dark:text-slate-100">{{ $year->name }}</div>
                             @if ($year->is_current)
                                 <x-ui.badge color="indigo">العام الحالي</x-ui.badge>
                             @endif
                         </td>
-                        <td class="px-4 py-3 text-slate-600">
+                        <td class="px-4 py-3 text-slate-600 dark:text-slate-400">
                             {{ $year->start_date->format('Y-m-d') }} → {{ $year->end_date->format('Y-m-d') }}
                         </td>
                         <td class="px-4 py-3">
@@ -57,7 +57,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="4" class="px-4 py-10 text-center text-slate-400">
+                        <td colspan="4" class="px-4 py-10 text-center text-slate-400 dark:text-slate-500">
                             لم تُنشئ أي عام دراسي بعد. أنشئ عامك الأول لتبدأ في إضافة المجموعات.
                         </td>
                     </tr>
@@ -75,8 +75,8 @@
                 <x-ui.input name="end_date" type="date" label="تاريخ النهاية" wire:model="end_date" :error="$errors->first('end_date')" />
             </div>
 
-            <label class="flex items-center gap-2 text-sm text-slate-600">
-                <input type="checkbox" wire:model="make_current" class="rounded border-slate-300 text-indigo-600">
+            <label class="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
+                <input type="checkbox" wire:model="make_current" class="rounded border-slate-300 dark:border-slate-600 text-indigo-600">
                 تحديده كعام دراسي حالي
             </label>
 

@@ -3,9 +3,12 @@
 namespace App\Jobs;
 
 use App\Actions\Notifications\SendTenantNotificationAction;
+use App\Exports\ClassSessionsExport;
 use App\Exports\MonthlyDuesExport;
 use App\Exports\PaymentsExport;
+use App\Exports\RegistrationRequestsExport;
 use App\Exports\StudentsExport;
+use App\Exports\UsersExport;
 use App\Models\Tenant;
 use App\Notifications\ReportExportReadyNotification;
 use App\Support\Tenancy\TenantContext;
@@ -46,6 +49,9 @@ class GenerateReportExportJob implements ShouldQueue
             'students' => new StudentsExport($this->filters),
             'payments' => new PaymentsExport($this->filters),
             'monthly_dues' => new MonthlyDuesExport($this->filters),
+            'users' => new UsersExport($this->filters),
+            'registration_requests' => new RegistrationRequestsExport($this->filters),
+            'class_sessions' => new ClassSessionsExport($this->filters),
             default => throw new \InvalidArgumentException("Unknown report type: {$this->reportType}"),
         };
 

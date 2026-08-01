@@ -14,9 +14,11 @@
         background: var(--site-bg);
         color: var(--site-text);
         font-size: var(--site-font-size);
+        overflow-x: hidden;
     }
 
     h1, h2, h3 { color: var(--site-heading); }
+    .site-hero-title { color: inherit; }
 
     ::selection { background: color-mix(in srgb, var(--site-primary) 30%, transparent); }
 
@@ -50,16 +52,20 @@
        so content never disappears if JS fails to load. */
     [data-reveal] {
         opacity: 0;
-        transform: translateY(24px);
-        transition: opacity 700ms ease, transform 700ms ease;
+        transform: translateY(34px);
+        transition: opacity 1200ms ease, transform 1200ms ease;
     }
     [data-reveal].is-revealed { opacity: 1; transform: translateY(0); }
     [data-reveal="fade"] { transform: none; }
-    [data-reveal-delay="1"] { transition-delay: 90ms; }
-    [data-reveal-delay="2"] { transition-delay: 180ms; }
-    [data-reveal-delay="3"] { transition-delay: 270ms; }
-    [data-reveal-delay="4"] { transition-delay: 360ms; }
-    [data-reveal-delay="5"] { transition-delay: 450ms; }
+    [data-reveal="left"] { transform: translateX(-60px); }
+    [data-reveal="left"].is-revealed { transform: translateX(0); }
+    [data-reveal="right"] { transform: translateX(60px); }
+    [data-reveal="right"].is-revealed { transform: translateX(0); }
+    [data-reveal-delay="1"] { transition-delay: 150ms; }
+    [data-reveal-delay="2"] { transition-delay: 300ms; }
+    [data-reveal-delay="3"] { transition-delay: 450ms; }
+    [data-reveal-delay="4"] { transition-delay: 600ms; }
+    [data-reveal-delay="5"] { transition-delay: 750ms; }
 
     .site-card {
         transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
@@ -130,6 +136,17 @@
     .site-hero-track { direction: ltr; transition: transform 600ms cubic-bezier(.4,0,.2,1); touch-action: pan-y; cursor: grab; }
     .site-hero-track:active { cursor: grabbing; }
     .site-hero-slide { width: 100%; }
+
+    /* Ken Burns: a slow, continuous zoom on the active slide's image only —
+       toggled by initHeroSlider() adding/removing .is-active per slide (see
+       website.js). Both ancestors already clip overflow (.site-hero and its
+       inner track wrapper), so the zoom crops cleanly with no extra markup. */
+    .site-hero-slide img {
+        transform: scale(1);
+        transition: transform 8s linear;
+        will-change: transform;
+    }
+    .site-hero-slide.is-active img { transform: scale(1.08); }
 
     .site-slider-arrow {
         position: absolute;
@@ -231,6 +248,7 @@
         [data-reveal] { opacity: 1 !important; transform: none !important; transition: none !important; }
         .site-float, .site-float-slow, .site-pulse-ring { animation: none !important; }
         .site-hero-track { transition: none !important; }
+        .site-hero-slide img { transition: none !important; }
         .site-modal, .site-modal-overlay { transition: none !important; }
     }
 </style>

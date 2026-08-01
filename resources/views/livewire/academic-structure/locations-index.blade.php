@@ -2,15 +2,15 @@
     <div class="mb-6 flex items-center justify-between">
         <div>
             <h1 class="text-2xl font-bold">أماكن التدريس</h1>
-            <p class="text-sm text-slate-500">السنتر، المنزل، أونلاين، أو أي مكان آخر تُقام فيه المجموعات</p>
+            <p class="text-sm text-slate-500 dark:text-slate-400">السنتر، المنزل، أونلاين، أو أي مكان آخر تُقام فيه المجموعات</p>
         </div>
 
         <x-ui.button wire:click="create" class="w-auto px-4">+ مكان جديد</x-ui.button>
     </div>
 
-    <div class="overflow-x-auto rounded-2xl border border-slate-200 bg-white">
+    <div class="overflow-x-auto rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800">
         <table class="w-full min-w-[720px] text-right text-sm">
-            <thead class="border-b border-slate-200 bg-slate-50 text-slate-500">
+            <thead class="border-b border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/40 text-slate-500 dark:text-slate-400">
                 <tr>
                     <th class="px-4 py-3 font-medium">المكان</th>
                     <th class="px-4 py-3 font-medium">النوع</th>
@@ -19,19 +19,19 @@
                     <th class="px-4 py-3 font-medium">إجراءات</th>
                 </tr>
             </thead>
-            <tbody class="divide-y divide-slate-100">
+            <tbody class="divide-y divide-slate-100 dark:divide-slate-700">
                 @forelse ($locations as $location)
                     <tr wire:key="location-{{ $location->id }}">
                         <td class="px-4 py-3">
-                            <div class="font-medium text-slate-900">{{ $location->name }}</div>
+                            <div class="font-medium text-slate-900 dark:text-slate-100">{{ $location->name }}</div>
                             @if ($location->phone)
-                                <div class="text-xs text-slate-500">{{ $location->phone }}</div>
+                                <div class="text-xs text-slate-500 dark:text-slate-400">{{ $location->phone }}</div>
                             @endif
                         </td>
                         <td class="px-4 py-3">
                             <x-ui.badge color="indigo">{{ $location->typeLabel() }}</x-ui.badge>
                         </td>
-                        <td class="px-4 py-3 text-slate-600">
+                        <td class="px-4 py-3 text-slate-600 dark:text-slate-400">
                             {{ collect([$location->city, $location->governorate])->filter()->implode('، ') ?: '—' }}
                         </td>
                         <td class="px-4 py-3">
@@ -43,7 +43,7 @@
                         </td>
                         <td class="px-4 py-3">
                             <div class="flex gap-2">
-                                <button wire:click="edit({{ $location->id }})" class="rounded-lg border border-slate-300 px-2.5 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-50">
+                                <button wire:click="edit({{ $location->id }})" class="rounded-lg border border-slate-300 dark:border-slate-600 px-2.5 py-1.5 text-xs font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700/50">
                                     تعديل
                                 </button>
                                 <button wire:click="askDelete({{ $location->id }})" class="rounded-lg border border-red-200 px-2.5 py-1.5 text-xs font-medium text-red-600 hover:bg-red-50">
@@ -54,7 +54,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="5" class="px-4 py-10 text-center text-slate-400">
+                        <td colspan="5" class="px-4 py-10 text-center text-slate-400 dark:text-slate-500">
                             لم تُضف أي أماكن تدريس بعد.
                         </td>
                     </tr>
@@ -68,8 +68,8 @@
             <x-ui.input name="name" label="اسم المكان" wire:model="name" :error="$errors->first('name')" />
 
             <div>
-                <label class="mb-1.5 block text-sm font-medium text-slate-700">نوع المكان</label>
-                <select wire:model="type" class="block w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200">
+                <label class="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">نوع المكان</label>
+                <select wire:model="type" class="block w-full rounded-lg border border-slate-300 dark:border-slate-600 px-3.5 py-2.5 text-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200">
                     <option value="center">سنتر</option>
                     <option value="home">منزل</option>
                     <option value="online">أونلاين</option>
@@ -90,8 +90,8 @@
             <x-ui.input name="address" label="العنوان بالتفصيل" wire:model="address" :error="$errors->first('address')" />
             <x-ui.input name="google_maps_url" type="url" label="رابط خرائط جوجل (اختياري)" wire:model="google_maps_url" :error="$errors->first('google_maps_url')" placeholder="https://maps.google.com/..." />
 
-            <label class="flex items-center gap-2 text-sm text-slate-600">
-                <input type="checkbox" wire:model="is_active" class="rounded border-slate-300 text-indigo-600">
+            <label class="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
+                <input type="checkbox" wire:model="is_active" class="rounded border-slate-300 dark:border-slate-600 text-indigo-600">
                 مكان مفعّل
             </label>
 

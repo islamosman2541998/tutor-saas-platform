@@ -2,7 +2,7 @@
     <div class="mb-6 flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
         <div>
             <h1 class="text-2xl font-bold">المجموعات</h1>
-            <p class="text-sm text-slate-500">مجموعات الدروس الخصوصية ومواعيدها</p>
+            <p class="text-sm text-slate-500 dark:text-slate-400">مجموعات الدروس الخصوصية ومواعيدها</p>
         </div>
 
         <div class="flex flex-col gap-2 sm:flex-row">
@@ -10,9 +10,9 @@
                 type="text"
                 wire:model.live.debounce.400ms="search"
                 placeholder="ابحث بالاسم أو الكود..."
-                class="rounded-lg border border-slate-300 px-3.5 py-2 text-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200"
+                class="rounded-lg border border-slate-300 dark:border-slate-600 px-3.5 py-2 text-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200"
             >
-            <select wire:model.live="statusFilter" class="rounded-lg border border-slate-300 px-3.5 py-2 text-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200">
+            <select wire:model.live="statusFilter" class="rounded-lg border border-slate-300 dark:border-slate-600 px-3.5 py-2 text-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200">
                 <option value="">كل الحالات</option>
                 <option value="draft">مسودة</option>
                 <option value="active">نشطة</option>
@@ -24,9 +24,9 @@
         </div>
     </div>
 
-    <div class="overflow-x-auto rounded-2xl border border-slate-200 bg-white">
+    <div class="overflow-x-auto rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800">
         <table class="w-full min-w-[900px] text-right text-sm">
-            <thead class="border-b border-slate-200 bg-slate-50 text-slate-500">
+            <thead class="border-b border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/40 text-slate-500 dark:text-slate-400">
                 <tr>
                     <th class="px-4 py-3 font-medium">المجموعة</th>
                     <th class="px-4 py-3 font-medium">المادة / الصف</th>
@@ -37,24 +37,24 @@
                     <th class="px-4 py-3 font-medium">إجراءات</th>
                 </tr>
             </thead>
-            <tbody class="divide-y divide-slate-100">
+            <tbody class="divide-y divide-slate-100 dark:divide-slate-700">
                 @forelse ($groups as $group)
                     <tr wire:key="group-{{ $group->id }}">
                         <td class="px-4 py-3">
-                            <div class="font-medium text-slate-900">{{ $group->name }}</div>
-                            <div class="text-xs text-slate-500">{{ $group->code }}</div>
+                            <div class="font-medium text-slate-900 dark:text-slate-100">{{ $group->name }}</div>
+                            <div class="text-xs text-slate-500 dark:text-slate-400">{{ $group->code }}</div>
                         </td>
-                        <td class="px-4 py-3 text-slate-600">
+                        <td class="px-4 py-3 text-slate-600 dark:text-slate-400">
                             {{ $group->subject->name }} — {{ $group->grade->name }}
                         </td>
-                        <td class="px-4 py-3 text-slate-600">{{ $group->location->name }}</td>
-                        <td class="px-4 py-3 text-slate-600">
+                        <td class="px-4 py-3 text-slate-600 dark:text-slate-400">{{ $group->location->name }}</td>
+                        <td class="px-4 py-3 text-slate-600 dark:text-slate-400">
                             {{ $group->active_enrollments_count }}{{ $group->capacity ? ' / '.$group->capacity : '' }}
                             @if ($group->capacity && $group->active_enrollments_count >= $group->capacity)
                                 <x-ui.badge color="amber">مكتملة</x-ui.badge>
                             @endif
                         </td>
-                        <td class="px-4 py-3 text-slate-600">{{ $group->monthly_price }}</td>
+                        <td class="px-4 py-3 text-slate-600 dark:text-slate-400">{{ $group->monthly_price }}</td>
                         <td class="px-4 py-3">
                             @php
                                 $statusColors = ['draft' => 'slate', 'active' => 'green', 'paused' => 'amber', 'completed' => 'indigo', 'archived' => 'slate'];
@@ -64,16 +64,16 @@
                         </td>
                         <td class="px-4 py-3">
                             <div class="flex flex-wrap gap-2">
-                                <a href="{{ route('tenant.groups.students', ['tenant' => $currentTenant->slug, 'group' => $group->id]) }}" class="rounded-lg border border-slate-300 px-2.5 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-50">
+                                <a href="{{ route('tenant.groups.students', ['tenant' => $currentTenant->slug, 'group' => $group->id]) }}" class="rounded-lg border border-slate-300 dark:border-slate-600 px-2.5 py-1.5 text-xs font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700/50">
                                     الطلاب
                                 </a>
-                                <a href="{{ route('tenant.groups.schedules', ['tenant' => $currentTenant->slug, 'group' => $group->id]) }}" class="rounded-lg border border-slate-300 px-2.5 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-50">
+                                <a href="{{ route('tenant.groups.schedules', ['tenant' => $currentTenant->slug, 'group' => $group->id]) }}" class="rounded-lg border border-slate-300 dark:border-slate-600 px-2.5 py-1.5 text-xs font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700/50">
                                     المواعيد
                                 </a>
-                                <a href="{{ route('tenant.groups.sessions', ['tenant' => $currentTenant->slug, 'group' => $group->id]) }}" class="rounded-lg border border-slate-300 px-2.5 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-50">
+                                <a href="{{ route('tenant.groups.sessions', ['tenant' => $currentTenant->slug, 'group' => $group->id]) }}" class="rounded-lg border border-slate-300 dark:border-slate-600 px-2.5 py-1.5 text-xs font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700/50">
                                     الحصص
                                 </a>
-                                <button wire:click="edit({{ $group->id }})" class="rounded-lg border border-slate-300 px-2.5 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-50">
+                                <button wire:click="edit({{ $group->id }})" class="rounded-lg border border-slate-300 dark:border-slate-600 px-2.5 py-1.5 text-xs font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700/50">
                                     تعديل
                                 </button>
                                 <button wire:click="askDelete({{ $group->id }})" class="rounded-lg border border-red-200 px-2.5 py-1.5 text-xs font-medium text-red-600 hover:bg-red-50">
@@ -84,7 +84,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="6" class="px-4 py-10 text-center text-slate-400">
+                        <td colspan="6" class="px-4 py-10 text-center text-slate-400 dark:text-slate-500">
                             لم تُنشئ أي مجموعة بعد. أنشئ مجموعتك الأولى وحدد المادة والصف والمواعيد.
                         </td>
                     </tr>
@@ -102,8 +102,8 @@
             <x-ui.input name="name" label="اسم المجموعة" wire:model="name" :error="$errors->first('name')" />
 
             <div>
-                <label class="mb-1.5 block text-sm font-medium text-slate-700">العام الدراسي</label>
-                <select wire:model="academic_year_id" class="block w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200">
+                <label class="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">العام الدراسي</label>
+                <select wire:model="academic_year_id" class="block w-full rounded-lg border border-slate-300 dark:border-slate-600 px-3.5 py-2.5 text-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200">
                     <option value="">اختر عام دراسي</option>
                     @foreach ($academicYears as $year)
                         <option value="{{ $year->id }}">{{ $year->name }}</option>
@@ -114,8 +114,8 @@
 
             <div class="grid grid-cols-2 gap-4">
                 <div>
-                    <label class="mb-1.5 block text-sm font-medium text-slate-700">المرحلة</label>
-                    <select wire:model.live="stage_id" class="block w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200">
+                    <label class="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">المرحلة</label>
+                    <select wire:model.live="stage_id" class="block w-full rounded-lg border border-slate-300 dark:border-slate-600 px-3.5 py-2.5 text-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200">
                         <option value="">اختر مرحلة</option>
                         @foreach ($stages as $stage)
                             <option value="{{ $stage->id }}">{{ $stage->name }}</option>
@@ -125,8 +125,8 @@
                 </div>
 
                 <div>
-                    <label class="mb-1.5 block text-sm font-medium text-slate-700">الصف</label>
-                    <select wire:model="grade_id" class="block w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200" @if(!$stage_id) disabled @endif>
+                    <label class="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">الصف</label>
+                    <select wire:model="grade_id" class="block w-full rounded-lg border border-slate-300 dark:border-slate-600 px-3.5 py-2.5 text-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200" @if(!$stage_id) disabled @endif>
                         <option value="">{{ $stage_id ? 'اختر صفًا' : 'اختر مرحلة أولًا' }}</option>
                         @foreach ($grades as $grade)
                             <option value="{{ $grade->id }}">{{ $grade->name }}</option>
@@ -138,8 +138,8 @@
 
             <div class="grid grid-cols-2 gap-4">
                 <div>
-                    <label class="mb-1.5 block text-sm font-medium text-slate-700">المادة</label>
-                    <select wire:model="subject_id" class="block w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200">
+                    <label class="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">المادة</label>
+                    <select wire:model="subject_id" class="block w-full rounded-lg border border-slate-300 dark:border-slate-600 px-3.5 py-2.5 text-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200">
                         <option value="">اختر مادة</option>
                         @foreach ($subjects as $subject)
                             <option value="{{ $subject->id }}">{{ $subject->name }}</option>
@@ -149,8 +149,8 @@
                 </div>
 
                 <div>
-                    <label class="mb-1.5 block text-sm font-medium text-slate-700">المكان</label>
-                    <select wire:model="location_id" class="block w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200">
+                    <label class="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">المكان</label>
+                    <select wire:model="location_id" class="block w-full rounded-lg border border-slate-300 dark:border-slate-600 px-3.5 py-2.5 text-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200">
                         <option value="">اختر مكانًا</option>
                         @foreach ($locations as $location)
                             <option value="{{ $location->id }}">{{ $location->name }}</option>
@@ -172,8 +172,8 @@
 
             <div class="grid grid-cols-2 gap-4">
                 <div>
-                    <label class="mb-1.5 block text-sm font-medium text-slate-700">حالة الاشتراك بالمجموعة</label>
-                    <select wire:model="enrollment_status" class="block w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200">
+                    <label class="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">حالة الاشتراك بالمجموعة</label>
+                    <select wire:model="enrollment_status" class="block w-full rounded-lg border border-slate-300 dark:border-slate-600 px-3.5 py-2.5 text-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200">
                         <option value="open">مفتوح</option>
                         <option value="waiting_list">قائمة انتظار</option>
                         <option value="closed">مغلق</option>
@@ -181,8 +181,8 @@
                 </div>
 
                 <div>
-                    <label class="mb-1.5 block text-sm font-medium text-slate-700">حالة المجموعة</label>
-                    <select wire:model="status" class="block w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200">
+                    <label class="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">حالة المجموعة</label>
+                    <select wire:model="status" class="block w-full rounded-lg border border-slate-300 dark:border-slate-600 px-3.5 py-2.5 text-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200">
                         <option value="draft">مسودة</option>
                         <option value="active">نشطة</option>
                         <option value="paused">متوقفة</option>
@@ -192,14 +192,14 @@
                 </div>
             </div>
 
-            <label class="flex items-center gap-2 text-sm text-slate-600">
-                <input type="checkbox" wire:model="allow_online_registration" class="rounded border-slate-300 text-indigo-600">
+            <label class="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
+                <input type="checkbox" wire:model="allow_online_registration" class="rounded border-slate-300 dark:border-slate-600 text-indigo-600">
                 السماح بالتسجيل أونلاين من الموقع التعريفي
             </label>
 
             <div>
-                <label class="mb-1.5 block text-sm font-medium text-slate-700">ملاحظات (اختياري)</label>
-                <textarea wire:model="notes" rows="2" class="block w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200"></textarea>
+                <label class="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">ملاحظات (اختياري)</label>
+                <textarea wire:model="notes" rows="2" class="block w-full rounded-lg border border-slate-300 dark:border-slate-600 px-3.5 py-2.5 text-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200"></textarea>
             </div>
 
             <div class="flex gap-3 pt-2">

@@ -136,5 +136,21 @@
         @case('x')
             <path d="M5 5l14 14M19 5 5 19" stroke-linecap="round" />
             @break
+
+        @case('sun')
+            <circle cx="12" cy="12" r="4" />
+            <path d="M12 2.5v2.5M12 19v2.5M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M2.5 12H5M19 12h2.5M4.6 19.4l1.8-1.8M17.6 6.4l1.8-1.8" stroke-linecap="round" />
+            @break
+
+        @case('moon')
+            <path d="M20 13.5A8.5 8.5 0 1 1 10.5 4a6.5 6.5 0 0 0 9.5 9.5Z" stroke-linejoin="round" />
+            @break
+
+        @case('image')
+            <rect x="3" y="4" width="18" height="16" rx="2" />
+            <circle cx="8.5" cy="9.5" r="1.6" />
+            <path d="m4.5 17.5 5-5.5a1.5 1.5 0 0 1 2.2 0l2.3 2.5" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="m12.5 15 2-2.2a1.5 1.5 0 0 1 2.2 0l2.3 2.7" stroke-linecap="round" stroke-linejoin="round" />
+            @break
     @endswitch
 </svg>

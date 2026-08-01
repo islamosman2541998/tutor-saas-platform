@@ -1,9 +1,9 @@
 <div>
-    <h1 class="mb-1 text-xl font-bold">دخول Super Admin</h1>
-    <p class="mb-6 text-sm text-slate-500">لوحة تحكم المنصة</p>
+    <h1 class="mb-1 text-xl font-bold login-title">دخول Super Admin</h1>
+    <p class="mb-6 text-sm login-text">لوحة تحكم المنصة</p>
 
     @if (session('status'))
-        <div class="mb-4 rounded-lg bg-emerald-50 px-3.5 py-2.5 text-sm text-emerald-700">{{ session('status') }}</div>
+        <div class="mb-4 rounded-lg bg-emerald-50 px-3.5 py-2.5 text-sm text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400">{{ session('status') }}</div>
     @endif
 
     <form wire:submit="login" class="space-y-4">
@@ -26,13 +26,13 @@
             autocomplete="current-password"
         />
 
-        <div class="flex items-center justify-between text-sm">
-            <label class="flex items-center gap-2 text-slate-600">
-                <input type="checkbox" wire:model="remember" class="rounded border-slate-300 text-indigo-600 focus:ring-indigo-400">
+        <div class="flex items-center justify-between text-sm login-text">
+            <label class="flex items-center gap-2">
+                <input type="checkbox" wire:model="remember" class="rounded border-slate-300 text-indigo-600 focus:ring-indigo-400 dark:border-slate-600">
                 تذكرني
             </label>
 
-            <a href="{{ route('admin.password.request') }}" class="text-indigo-600 hover:underline">
+            <a href="{{ route('admin.password.request') }}" class="hover:underline" style="color: var(--login-input-focus);">
                 نسيت كلمة المرور؟
             </a>
         </div>

@@ -2,17 +2,17 @@
     <div class="mb-6 flex items-center justify-between">
         <div>
             <h1 class="text-2xl font-bold">مظهر لوحة التحكم</h1>
-            <p class="text-sm text-slate-500">ألوان وشكل لوحة التحكم الخاصة بك وبفريقك — المعاينة أدناه تتحدث فورًا مع كل تغيير</p>
+            <p class="text-sm text-slate-500 dark:text-slate-400">ألوان وشكل لوحة التحكم الخاصة بك وبفريقك — المعاينة أدناه تتحدث فورًا مع كل تغيير</p>
         </div>
-        <button wire:click="resetToDefaults" type="button" class="rounded-lg border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50">
+        <button wire:click="resetToDefaults" type="button" class="rounded-lg border border-slate-300 dark:border-slate-600 px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700/50">
             استعادة الافتراضي
         </button>
     </div>
 
     <div class="grid grid-cols-1 gap-6 lg:grid-cols-5">
         <form wire:submit="save" class="space-y-6 lg:col-span-3">
-            <div class="rounded-2xl border border-slate-200 bg-white p-5">
-                <h2 class="mb-4 text-sm font-semibold text-slate-600">الألوان الأساسية</h2>
+            <div class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-5">
+                <h2 class="mb-4 text-sm font-semibold text-slate-600 dark:text-slate-400">الألوان الأساسية</h2>
                 <div class="grid grid-cols-2 gap-4 sm:grid-cols-3">
                     @foreach ([
                         'primary_color' => 'الأساسي', 'secondary_color' => 'الثانوي',
@@ -20,10 +20,10 @@
                         'topbar_color' => 'الشريط العلوي (موبايل)', 'page_bg_color' => 'خلفية الصفحة', 'card_bg_color' => 'خلفية البطاقات', 'text_color' => 'النص العام',
                     ] as $field => $label)
                         <div>
-                            <label class="mb-1.5 block text-xs font-medium text-slate-700">{{ $label }}</label>
+                            <label class="mb-1.5 block text-xs font-medium text-slate-700 dark:text-slate-300">{{ $label }}</label>
                             <div class="flex items-center gap-2">
-                                <input type="color" wire:model.live="{{ $field }}" class="h-9 w-9 shrink-0 cursor-pointer rounded border border-slate-300">
-                                <input type="text" wire:model.live="{{ $field }}" class="w-full rounded-lg border border-slate-300 px-2 py-1.5 text-xs focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200">
+                                <input type="color" wire:model.live="{{ $field }}" class="h-9 w-9 shrink-0 cursor-pointer rounded border border-slate-300 dark:border-slate-600">
+                                <input type="text" wire:model.live="{{ $field }}" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 px-2 py-1.5 text-xs focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200">
                             </div>
                             @error($field) <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
                         </div>
@@ -31,14 +31,14 @@
                 </div>
             </div>
 
-            <div class="rounded-2xl border border-slate-200 bg-white p-5">
-                <h2 class="mb-4 text-sm font-semibold text-slate-600">التخطيط</h2>
+            <div class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-5">
+                <h2 class="mb-4 text-sm font-semibold text-slate-600 dark:text-slate-400">التخطيط</h2>
                 <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
                     <x-ui.input name="border_radius" type="number" label="استدارة الحواف (px)" wire:model.live="border_radius" :error="$errors->first('border_radius')" />
 
                     <div>
-                        <label class="mb-1.5 block text-sm font-medium text-slate-700">عرض الشريط الجانبي</label>
-                        <select wire:model.live="sidebar_size" class="block w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200">
+                        <label class="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">عرض الشريط الجانبي</label>
+                        <select wire:model.live="sidebar_size" class="block w-full rounded-lg border border-slate-300 dark:border-slate-600 px-3.5 py-2.5 text-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200">
                             <option value="compact">ضيّق</option>
                             <option value="normal">عادي</option>
                             <option value="wide">واسع</option>
@@ -46,41 +46,41 @@
                     </div>
 
                     <div>
-                        <label class="mb-1.5 block text-sm font-medium text-slate-700">وضع الألوان</label>
-                        <select wire:model.live="theme_mode" class="block w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200">
+                        <label class="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">وضع الألوان</label>
+                        <select wire:model.live="theme_mode" class="block w-full rounded-lg border border-slate-300 dark:border-slate-600 px-3.5 py-2.5 text-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200">
                             <option value="light">فاتح</option>
                             <option value="dark">داكن</option>
-                            <option value="user_choice">حسب اختيار المستخدم</option>
+                            <option value="user_choice">حسب جهاز الزائر</option>
                         </select>
-                        <p class="mt-1 text-xs text-amber-600">الوضع الداكن قيد التطوير حاليًا — يُحفظ اختيارك لكن اللوحة تعرض بالوضع الفاتح مؤقتًا.</p>
+                        <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">هذا هو الوضع الافتراضي — أي مستخدم يقدر يبدّله لنفسه من زر الوضع الليلي/النهاري أعلى اللوحة.</p>
                     </div>
                 </div>
             </div>
 
-            <div class="rounded-2xl border border-slate-200 bg-white p-5">
-                <h2 class="mb-4 text-sm font-semibold text-slate-600">الشعارات</h2>
+            <div class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-5">
+                <h2 class="mb-4 text-sm font-semibold text-slate-600 dark:text-slate-400">الشعارات</h2>
                 <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
                     <div>
-                        <label class="mb-1.5 block text-sm font-medium text-slate-700">الشعار الكامل</label>
+                        <label class="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">الشعار الكامل</label>
                         <input type="file" wire:model="logo_full" class="block w-full text-sm">
                         @if ($existingLogoFull && ! $logo_full)
-                            <img src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($existingLogoFull) }}" class="mt-2 h-10 rounded border border-slate-200 object-contain">
+                            <img src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($existingLogoFull) }}" class="mt-2 h-10 rounded border border-slate-200 dark:border-slate-700 object-contain">
                         @endif
                         @error('logo_full') <p class="mt-1.5 text-xs text-red-600">{{ $message }}</p> @enderror
                     </div>
                     <div>
-                        <label class="mb-1.5 block text-sm font-medium text-slate-700">الشعار المصغّر</label>
+                        <label class="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">الشعار المصغّر</label>
                         <input type="file" wire:model="logo_mini" class="block w-full text-sm">
                         @if ($existingLogoMini && ! $logo_mini)
-                            <img src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($existingLogoMini) }}" class="mt-2 h-10 w-10 rounded border border-slate-200 object-contain">
+                            <img src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($existingLogoMini) }}" class="mt-2 h-10 w-10 rounded border border-slate-200 dark:border-slate-700 object-contain">
                         @endif
                         @error('logo_mini') <p class="mt-1.5 text-xs text-red-600">{{ $message }}</p> @enderror
                     </div>
                     <div>
-                        <label class="mb-1.5 block text-sm font-medium text-slate-700">الفافيكون</label>
+                        <label class="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">الفافيكون</label>
                         <input type="file" wire:model="favicon" class="block w-full text-sm">
                         @if ($existingFavicon && ! $favicon)
-                            <img src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($existingFavicon) }}" class="mt-2 h-8 w-8 rounded border border-slate-200 object-contain">
+                            <img src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($existingFavicon) }}" class="mt-2 h-8 w-8 rounded border border-slate-200 dark:border-slate-700 object-contain">
                         @endif
                         @error('favicon') <p class="mt-1.5 text-xs text-red-600">{{ $message }}</p> @enderror
                     </div>
@@ -92,9 +92,9 @@
 
         <div class="lg:col-span-2">
             <div class="sticky top-6">
-                <p class="mb-3 text-sm font-semibold text-slate-600">معاينة حيّة</p>
+                <p class="mb-3 text-sm font-semibold text-slate-600 dark:text-slate-400">معاينة حيّة</p>
 
-                <div class="overflow-hidden rounded-2xl border border-slate-300 shadow-sm" style="border-radius: {{ (int) $border_radius }}px;">
+                <div class="overflow-hidden rounded-2xl border border-slate-300 dark:border-slate-600 shadow-sm" style="border-radius: {{ (int) $border_radius }}px;">
                     <div class="flex" style="background: {{ $page_bg_color }};">
                         {{-- Mini sidebar --}}
                         <div class="w-24 shrink-0 p-2" style="background: {{ $sidebar_bg_color }};">

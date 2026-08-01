@@ -1,6 +1,6 @@
 <div>
-    <h1 class="mb-1 text-xl font-bold">تعيين كلمة مرور جديدة</h1>
-    <p class="mb-6 text-sm text-slate-500">اختر كلمة مرور قوية لحسابك.</p>
+    <h1 class="mb-1 text-xl font-bold login-title">تعيين كلمة مرور جديدة</h1>
+    <p class="mb-6 text-sm login-text">اختر كلمة مرور قوية لحسابك.</p>
 
     <form wire:submit="resetPassword" class="space-y-4">
         <x-ui.input

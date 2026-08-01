@@ -48,6 +48,22 @@ class TenantSubscription extends Model
         return in_array($this->status, ['trial', 'active'], true);
     }
 
+    /**
+     * Whether this subscription currently grants access to the app — status
+     * alone isn't enough since nothing flips 'trial'/'active' to 'expired'
+     * the instant ends_at/trial_ends_at passes (see
+     * ExpireTenantSubscriptionsCommand, which runs daily but isn't
+     * instantaneous), so the date is checked directly here too.
+     */
+    public function isCurrentlyValid(): bool
+    {
+        return match ($this->status) {
+            'trial' => $this->trial_ends_at === null || $this->trial_ends_at->isFuture(),
+            'active' => $this->ends_at === null || $this->ends_at->isFuture(),
+            default => false,
+        };
+    }
+
     public function payments(): HasMany
     {
         return $this->hasMany(SubscriptionPayment::class);

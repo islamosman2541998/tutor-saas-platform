@@ -1,6 +1,6 @@
 <div>
-    <h1 class="mb-1 text-xl font-bold">إنشاء حسابك كمدرس</h1>
-    <p class="mb-6 text-sm text-slate-500">ابدأ إدارة دروسك الخصوصية في دقائق</p>
+    <h1 class="mb-1 text-xl font-bold login-title">إنشاء حسابك كمدرس</h1>
+    <p class="mb-6 text-sm login-text">ابدأ إدارة دروسك الخصوصية في دقائق</p>
 
     <form wire:submit="register" class="space-y-4">
         <x-ui.input
@@ -57,7 +57,7 @@
         </x-ui.button>
     </form>
 
-    <p class="mt-6 text-center text-sm text-slate-500">
+    <p class="mt-6 text-center text-sm login-text">
         لديك حساب بالفعل؟ استخدم رابط الدخول الخاص بمركزك.
     </p>
 </div>

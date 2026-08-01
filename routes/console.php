@@ -8,6 +8,11 @@ Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote');
 
+// Keeps subscription status honest once an end date passes — access is
+// already blocked in real time by EnsureSubscriptionIsValid regardless of
+// this running, see ExpireTenantSubscriptionsCommand.
+Schedule::command('subscriptions:expire')->dailyAt('01:00');
+
 // Generates the coming month's dues a few days early so teachers can review
 // them before the month actually starts — re-running this (or the manual
 // "توليد" button) later in the month is safe, see GenerateMonthlyDuesAction.

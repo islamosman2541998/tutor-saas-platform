@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 
 /**
  * Creates a staff account (assistant/accountant/content_manager) under the
+ * current tenant. The Teacher Owner role is never assignable here — it's
  * set exactly once, at tenant registration (see RegisterTenantAction).
  */
 class CreateStaffUserAction

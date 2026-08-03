@@ -1,5 +1,5 @@
 <x-layouts.guest :title="'انتهى الاشتراك'">
-    <h1 class="mb-1 text-xl font-bold login-title">اشتراكك انتهى</h1>
+    <h1 class="mb-1 text-xl font-bold login-heading">اشتراكك انتهى</h1>
     <p class="mb-6 text-sm login-text">
         باقة اشتراكك في المنصة انتهت أو غير مفعّلة حاليًا. تواصل مع فريق الدعم الفني لتجديد الاشتراك واستعادة الوصول لحسابك.
     </p>

@@ -62,26 +62,84 @@
                 <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
                     <div>
                         <label class="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">الشعار الكامل</label>
-                        <input type="file" wire:model="logo_full" class="block w-full text-sm">
-                        @if ($existingLogoFull && ! $logo_full)
-                            <img src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($existingLogoFull) }}" class="mt-2 h-10 rounded border border-slate-200 dark:border-slate-700 object-contain">
-                        @endif
+                        <label
+                            for="logo-full"
+                            class="group relative flex h-20 cursor-pointer items-center justify-center overflow-hidden rounded-xl border-2 border-dashed border-slate-300 bg-slate-50 transition hover:border-indigo-400 hover:bg-indigo-50/50 dark:border-slate-600 dark:bg-slate-900/30 dark:hover:border-indigo-500 dark:hover:bg-indigo-900/10"
+                        >
+                            @if ($logo_full)
+                                <img src="{{ $logo_full->temporaryUrl() }}" class="absolute inset-0 h-full w-full object-contain p-2">
+                            @elseif ($existingLogoFull)
+                                <img src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($existingLogoFull) }}" class="absolute inset-0 h-full w-full object-contain p-2">
+                            @endif
+
+                            @if ($logo_full || $existingLogoFull)
+                                <div class="absolute inset-0 flex items-center justify-center bg-slate-900/0 opacity-0 transition group-hover:bg-slate-900/50 group-hover:opacity-100">
+                                    <span class="rounded-lg bg-white/90 px-3 py-1.5 text-xs font-medium text-slate-700">تغيير</span>
+                                </div>
+                            @else
+                                <div class="flex flex-col items-center gap-1 text-slate-400 dark:text-slate-500">
+                                    <x-ui.icon name="image" class="h-5 w-5" />
+                                    <span class="text-xs font-medium">اضغط لاختيار صورة</span>
+                                </div>
+                            @endif
+
+                            <input id="logo-full" type="file" wire:model="logo_full" accept="image/*" class="sr-only">
+                        </label>
+                        <div wire:loading wire:target="logo_full" class="mt-1 text-xs text-slate-400 dark:text-slate-500">جارٍ الرفع...</div>
                         @error('logo_full') <p class="mt-1.5 text-xs text-red-600">{{ $message }}</p> @enderror
                     </div>
                     <div>
                         <label class="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">الشعار المصغّر</label>
-                        <input type="file" wire:model="logo_mini" class="block w-full text-sm">
-                        @if ($existingLogoMini && ! $logo_mini)
-                            <img src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($existingLogoMini) }}" class="mt-2 h-10 w-10 rounded border border-slate-200 dark:border-slate-700 object-contain">
-                        @endif
+                        <label
+                            for="logo-mini"
+                            class="group relative flex h-20 w-20 cursor-pointer items-center justify-center overflow-hidden rounded-xl border-2 border-dashed border-slate-300 bg-slate-50 transition hover:border-indigo-400 hover:bg-indigo-50/50 dark:border-slate-600 dark:bg-slate-900/30 dark:hover:border-indigo-500 dark:hover:bg-indigo-900/10"
+                        >
+                            @if ($logo_mini)
+                                <img src="{{ $logo_mini->temporaryUrl() }}" class="absolute inset-0 h-full w-full object-contain p-2">
+                            @elseif ($existingLogoMini)
+                                <img src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($existingLogoMini) }}" class="absolute inset-0 h-full w-full object-contain p-2">
+                            @endif
+
+                            @if ($logo_mini || $existingLogoMini)
+                                <div class="absolute inset-0 flex items-center justify-center bg-slate-900/0 opacity-0 transition group-hover:bg-slate-900/50 group-hover:opacity-100">
+                                    <span class="rounded-lg bg-white/90 px-2 py-1 text-[11px] font-medium text-slate-700">تغيير</span>
+                                </div>
+                            @else
+                                <div class="flex flex-col items-center gap-1 text-slate-400 dark:text-slate-500">
+                                    <x-ui.icon name="image" class="h-5 w-5" />
+                                </div>
+                            @endif
+
+                            <input id="logo-mini" type="file" wire:model="logo_mini" accept="image/*" class="sr-only">
+                        </label>
+                        <div wire:loading wire:target="logo_mini" class="mt-1 text-xs text-slate-400 dark:text-slate-500">جارٍ الرفع...</div>
                         @error('logo_mini') <p class="mt-1.5 text-xs text-red-600">{{ $message }}</p> @enderror
                     </div>
                     <div>
                         <label class="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">الفافيكون</label>
-                        <input type="file" wire:model="favicon" class="block w-full text-sm">
-                        @if ($existingFavicon && ! $favicon)
-                            <img src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($existingFavicon) }}" class="mt-2 h-8 w-8 rounded border border-slate-200 dark:border-slate-700 object-contain">
-                        @endif
+                        <label
+                            for="favicon"
+                            class="group relative flex h-20 w-20 cursor-pointer items-center justify-center overflow-hidden rounded-xl border-2 border-dashed border-slate-300 bg-slate-50 transition hover:border-indigo-400 hover:bg-indigo-50/50 dark:border-slate-600 dark:bg-slate-900/30 dark:hover:border-indigo-500 dark:hover:bg-indigo-900/10"
+                        >
+                            @if ($favicon)
+                                <img src="{{ $favicon->temporaryUrl() }}" class="absolute inset-0 h-full w-full object-contain p-2">
+                            @elseif ($existingFavicon)
+                                <img src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($existingFavicon) }}" class="absolute inset-0 h-full w-full object-contain p-2">
+                            @endif
+
+                            @if ($favicon || $existingFavicon)
+                                <div class="absolute inset-0 flex items-center justify-center bg-slate-900/0 opacity-0 transition group-hover:bg-slate-900/50 group-hover:opacity-100">
+                                    <span class="rounded-lg bg-white/90 px-2 py-1 text-[11px] font-medium text-slate-700">تغيير</span>
+                                </div>
+                            @else
+                                <div class="flex flex-col items-center gap-1 text-slate-400 dark:text-slate-500">
+                                    <x-ui.icon name="image" class="h-5 w-5" />
+                                </div>
+                            @endif
+
+                            <input id="favicon" type="file" wire:model="favicon" accept="image/*" class="sr-only">
+                        </label>
+                        <div wire:loading wire:target="favicon" class="mt-1 text-xs text-slate-400 dark:text-slate-500">جارٍ الرفع...</div>
                         @error('favicon') <p class="mt-1.5 text-xs text-red-600">{{ $message }}</p> @enderror
                     </div>
                 </div>

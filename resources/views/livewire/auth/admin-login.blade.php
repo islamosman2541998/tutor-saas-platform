@@ -1,5 +1,5 @@
 <div>
-    <h1 class="mb-1 text-xl font-bold login-title">دخول Super Admin</h1>
+    <h1 class="mb-1 text-xl font-bold login-heading">دخول Super Admin</h1>
     <p class="mb-6 text-sm login-text">لوحة تحكم المنصة</p>
 
     @if (session('status'))

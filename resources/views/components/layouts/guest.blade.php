@@ -44,6 +44,8 @@
             --login-bg-color: #0f172a;
             --login-card-bg: #1e293b;
             --login-title: #f1f5f9;
+            --login-brand: #f1f5f9;
+            --login-heading: #f1f5f9;
             --login-text: #94a3b8;
             --login-label: #cbd5e1;
             --login-input-bg: #334155;
@@ -67,6 +69,8 @@
         }
         .login-card label { color: var(--login-label); }
         .login-card .login-title { color: var(--login-title); }
+        .login-card .login-brand { color: var(--login-brand); }
+        .login-card .login-heading { color: var(--login-heading); }
         .login-card .login-text, .login-card .login-text a { color: var(--login-text); }
         .login-card button[type="submit"] {
             background: var(--login-button) !important;
@@ -108,7 +112,7 @@
 
         <div class="login-card relative z-10 w-full max-w-sm p-6 sm:p-8" style="background: var(--login-card-bg); opacity: var(--login-card-opacity); border-radius: var(--login-radius); box-shadow: var(--login-shadow); {{ $loginSettings->card_blur ? 'backdrop-filter: blur(12px);' : '' }}">
             @if ($loginSettings->show_logo)
-                <div class="mb-6 text-lg font-bold login-title">{{ $currentTenant->teacher_name ?? config('app.name') }}</div>
+                <div class="mb-6 text-lg font-bold login-brand">{{ $currentTenant->teacher_name ?? config('app.name') }}</div>
             @endif
 
             @if ($loginSettings->welcome_title)

@@ -24,10 +24,30 @@
 
                     <div>
                         <label class="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">صورة الخلفية (اختياري)</label>
-                        <input type="file" wire:model="background_image" class="block w-full text-sm">
-                        @if ($existingBackgroundImage && ! $background_image)
-                            <img src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($existingBackgroundImage) }}" class="mt-2 h-10 rounded border border-slate-200 dark:border-slate-700 object-cover">
-                        @endif
+                        <label
+                            for="background-image"
+                            class="group relative flex h-24 cursor-pointer items-center justify-center overflow-hidden rounded-xl border-2 border-dashed border-slate-300 bg-slate-50 transition hover:border-indigo-400 hover:bg-indigo-50/50 dark:border-slate-600 dark:bg-slate-900/30 dark:hover:border-indigo-500 dark:hover:bg-indigo-900/10"
+                        >
+                            @if ($background_image)
+                                <img src="{{ $background_image->temporaryUrl() }}" class="absolute inset-0 h-full w-full object-cover">
+                            @elseif ($existingBackgroundImage)
+                                <img src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($existingBackgroundImage) }}" class="absolute inset-0 h-full w-full object-cover">
+                            @endif
+
+                            @if ($background_image || $existingBackgroundImage)
+                                <div class="absolute inset-0 flex items-center justify-center bg-slate-900/0 opacity-0 transition group-hover:bg-slate-900/50 group-hover:opacity-100">
+                                    <span class="rounded-lg bg-white/90 px-3 py-1.5 text-xs font-medium text-slate-700">تغيير الصورة</span>
+                                </div>
+                            @else
+                                <div class="flex flex-col items-center gap-1 text-slate-400 dark:text-slate-500">
+                                    <x-ui.icon name="image" class="h-6 w-6" />
+                                    <span class="text-xs font-medium">اضغط لاختيار صورة</span>
+                                </div>
+                            @endif
+
+                            <input id="background-image" type="file" wire:model="background_image" accept="image/*" class="sr-only">
+                        </label>
+                        <div wire:loading wire:target="background_image" class="mt-1 text-xs text-slate-400 dark:text-slate-500">جارٍ الرفع...</div>
                         @error('background_image') <p class="mt-1.5 text-xs text-red-600">{{ $message }}</p> @enderror
                     </div>
 
@@ -65,6 +85,11 @@
                         </div>
                     </div>
 
+                    <div>
+                        <label class="mb-1.5 block text-xs font-medium text-slate-700 dark:text-slate-300">شفافية البطاقة (0 — 1)</label>
+                        <input type="range" min="0.1" max="1" step="0.05" wire:model.live="card_opacity" class="mt-2.5 w-full">
+                    </div>
+
                     <x-ui.input name="border_radius" type="number" label="استدارة الحواف (px)" wire:model.live="border_radius" />
 
                     <div>
@@ -97,7 +122,8 @@
                 <h2 class="mb-4 text-sm font-semibold text-slate-600 dark:text-slate-400">الألوان</h2>
                 <div class="grid grid-cols-2 gap-4 sm:grid-cols-3">
                     @foreach ([
-                        'title_color' => 'العنوان', 'text_color' => 'النص', 'label_color' => 'تسميات الحقول',
+                        'brand_name_color' => 'اسم المستأجر (الشعار)', 'heading_color' => 'عنوان الصفحة', 'title_color' => 'عنوان الترحيب',
+                        'text_color' => 'النص', 'label_color' => 'تسميات الحقول',
                         'input_bg_color' => 'خلفية الحقول', 'input_text_color' => 'نص الحقول', 'input_border_color' => 'حدود الحقول',
                         'input_focus_color' => 'تركيز الحقل', 'button_color' => 'الزر', 'button_text_color' => 'نص الزر', 'button_hover_color' => 'الزر (تمرير)',
                     ] as $field => $label)
@@ -120,10 +146,30 @@
 
                     <div>
                         <label class="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">صورة جانبية (اختياري — تظهر عند اختيار موضع يسار/يمين)</label>
-                        <input type="file" wire:model="side_image" class="block w-full text-sm">
-                        @if ($existingSideImage && ! $side_image)
-                            <img src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($existingSideImage) }}" class="mt-2 h-10 rounded border border-slate-200 dark:border-slate-700 object-cover">
-                        @endif
+                        <label
+                            for="side-image"
+                            class="group relative flex h-24 cursor-pointer items-center justify-center overflow-hidden rounded-xl border-2 border-dashed border-slate-300 bg-slate-50 transition hover:border-indigo-400 hover:bg-indigo-50/50 dark:border-slate-600 dark:bg-slate-900/30 dark:hover:border-indigo-500 dark:hover:bg-indigo-900/10"
+                        >
+                            @if ($side_image)
+                                <img src="{{ $side_image->temporaryUrl() }}" class="absolute inset-0 h-full w-full object-cover">
+                            @elseif ($existingSideImage)
+                                <img src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($existingSideImage) }}" class="absolute inset-0 h-full w-full object-cover">
+                            @endif
+
+                            @if ($side_image || $existingSideImage)
+                                <div class="absolute inset-0 flex items-center justify-center bg-slate-900/0 opacity-0 transition group-hover:bg-slate-900/50 group-hover:opacity-100">
+                                    <span class="rounded-lg bg-white/90 px-3 py-1.5 text-xs font-medium text-slate-700">تغيير الصورة</span>
+                                </div>
+                            @else
+                                <div class="flex flex-col items-center gap-1 text-slate-400 dark:text-slate-500">
+                                    <x-ui.icon name="image" class="h-6 w-6" />
+                                    <span class="text-xs font-medium">اضغط لاختيار صورة</span>
+                                </div>
+                            @endif
+
+                            <input id="side-image" type="file" wire:model="side_image" accept="image/*" class="sr-only">
+                        </label>
+                        <div wire:loading wire:target="side_image" class="mt-1 text-xs text-slate-400 dark:text-slate-500">جارٍ الرفع...</div>
                         @error('side_image') <p class="mt-1.5 text-xs text-red-600">{{ $message }}</p> @enderror
                     </div>
 
@@ -150,26 +196,55 @@
                 <p class="mb-3 text-sm font-semibold text-slate-600 dark:text-slate-400">معاينة حيّة</p>
 
                 <div
-                    class="flex h-80 items-center overflow-hidden rounded-2xl border border-slate-300 dark:border-slate-600 p-4"
+                    class="relative flex h-80 items-center overflow-hidden rounded-2xl border border-slate-300 dark:border-slate-600 p-4"
                     style="background: {{ $background_color }}; justify-content: {{ $card_position === 'left' ? 'flex-start' : ($card_position === 'right' ? 'flex-end' : 'center') }};"
                 >
+                    @php
+                        $previewBackgroundUrl = $background_image
+                            ? $background_image->temporaryUrl()
+                            : ($existingBackgroundImage ? \Illuminate\Support\Facades\Storage::disk('public')->url($existingBackgroundImage) : null);
+                        $previewSideUrl = $side_image
+                            ? $side_image->temporaryUrl()
+                            : ($existingSideImage ? \Illuminate\Support\Facades\Storage::disk('public')->url($existingSideImage) : null);
+                    @endphp
+
+                    @if ($previewBackgroundUrl)
+                        <div class="absolute inset-0" style="background: url('{{ $previewBackgroundUrl }}') center/cover;"></div>
+                        @if ($overlay_enabled)
+                            <div class="absolute inset-0 bg-black" style="opacity: {{ $overlay_opacity }};"></div>
+                        @endif
+                    @endif
+
+                    @if ($previewSideUrl && $card_position !== 'center')
+                        <img
+                            src="{{ $previewSideUrl }}"
+                            class="relative z-10 h-full max-h-64 w-20 object-cover {{ $card_position === 'left' ? 'order-2 ms-3' : 'me-3' }}"
+                            style="border-radius: {{ (int) $border_radius }}px;"
+                        >
+                    @endif
+
                     <div
-                        class="w-full max-w-[220px] p-4"
+                        class="relative z-10 w-full max-w-[220px] p-4"
                         style="
                             background: {{ $card_bg_color }};
                             opacity: {{ $card_opacity }};
                             border-radius: {{ (int) $border_radius }}px;
                             box-shadow: {{ match($shadow_style) { 'none' => 'none', 'soft' => '0 2px 8px rgba(15,23,42,.06)', 'strong' => '0 20px 50px rgba(15,23,42,.25)', default => '0 10px 25px rgba(15,23,42,.12)' } }};
+                            {{ $card_blur ? 'backdrop-filter: blur(12px);' : '' }}
                         "
                     >
                         @if ($show_logo)
-                            <div class="mb-2 h-6 w-6 rounded-full" style="background: {{ $button_color }};"></div>
+                            <p class="mb-2 text-xs font-bold" style="color: {{ $brand_name_color }};">{{ $currentTenant->teacher_name ?? config('app.name') }}</p>
                         @endif
 
-                        <p class="text-xs font-bold" style="color: {{ $title_color }};">{{ $welcome_title ?: 'تسجيل الدخول' }}</p>
+                        @if ($welcome_title)
+                            <p class="text-xs font-bold" style="color: {{ $title_color }};">{{ $welcome_title }}</p>
+                        @endif
                         @if ($welcome_description)
                             <p class="mt-0.5 text-[9px]" style="color: {{ $text_color }};">{{ $welcome_description }}</p>
                         @endif
+
+                        <p class="mt-2 text-xs font-bold" style="color: {{ $heading_color }};">تسجيل الدخول</p>
 
                         <div class="mt-3 space-y-2">
                             <div>

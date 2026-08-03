@@ -43,28 +43,86 @@
 
                 <div>
                     <label class="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">الشعار (Logo)</label>
-                    <input type="file" wire:model="logo" class="block w-full text-sm">
-                    @if ($existingLogo && ! $logo)
-                        <img src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($existingLogo) }}" class="mt-2 h-12 rounded border border-slate-200 dark:border-slate-700 object-contain">
-                    @endif
+                    <label
+                        for="site-logo"
+                        class="group relative flex h-20 cursor-pointer items-center justify-center overflow-hidden rounded-xl border-2 border-dashed border-slate-300 bg-slate-50 transition hover:border-indigo-400 hover:bg-indigo-50/50 dark:border-slate-600 dark:bg-slate-900/30 dark:hover:border-indigo-500 dark:hover:bg-indigo-900/10"
+                    >
+                        @if ($logo)
+                            <img src="{{ $logo->temporaryUrl() }}" class="absolute inset-0 h-full w-full object-contain p-2">
+                        @elseif ($existingLogo)
+                            <img src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($existingLogo) }}" class="absolute inset-0 h-full w-full object-contain p-2">
+                        @endif
+
+                        @if ($logo || $existingLogo)
+                            <div class="absolute inset-0 flex items-center justify-center bg-slate-900/0 opacity-0 transition group-hover:bg-slate-900/50 group-hover:opacity-100">
+                                <span class="rounded-lg bg-white/90 px-3 py-1.5 text-xs font-medium text-slate-700">تغيير</span>
+                            </div>
+                        @else
+                            <div class="flex flex-col items-center gap-1 text-slate-400 dark:text-slate-500">
+                                <x-ui.icon name="image" class="h-5 w-5" />
+                                <span class="text-xs font-medium">اضغط لاختيار صورة</span>
+                            </div>
+                        @endif
+
+                        <input id="site-logo" type="file" wire:model="logo" accept="image/*" class="sr-only">
+                    </label>
+                    <div wire:loading wire:target="logo" class="mt-1 text-xs text-slate-400 dark:text-slate-500">جارٍ الرفع...</div>
                     @error('logo') <p class="mt-1.5 text-sm text-red-600">{{ $message }}</p> @enderror
                 </div>
 
                 <div>
                     <label class="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">الفافيكون (Favicon)</label>
-                    <input type="file" wire:model="favicon" class="block w-full text-sm">
-                    @if ($existingFavicon && ! $favicon)
-                        <img src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($existingFavicon) }}" class="mt-2 h-8 w-8 rounded border border-slate-200 dark:border-slate-700 object-contain">
-                    @endif
+                    <label
+                        for="site-favicon"
+                        class="group relative flex h-20 w-20 cursor-pointer items-center justify-center overflow-hidden rounded-xl border-2 border-dashed border-slate-300 bg-slate-50 transition hover:border-indigo-400 hover:bg-indigo-50/50 dark:border-slate-600 dark:bg-slate-900/30 dark:hover:border-indigo-500 dark:hover:bg-indigo-900/10"
+                    >
+                        @if ($favicon)
+                            <img src="{{ $favicon->temporaryUrl() }}" class="absolute inset-0 h-full w-full object-contain p-2">
+                        @elseif ($existingFavicon)
+                            <img src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($existingFavicon) }}" class="absolute inset-0 h-full w-full object-contain p-2">
+                        @endif
+
+                        @if ($favicon || $existingFavicon)
+                            <div class="absolute inset-0 flex items-center justify-center bg-slate-900/0 opacity-0 transition group-hover:bg-slate-900/50 group-hover:opacity-100">
+                                <span class="rounded-lg bg-white/90 px-2 py-1 text-[11px] font-medium text-slate-700">تغيير</span>
+                            </div>
+                        @else
+                            <div class="flex flex-col items-center gap-1 text-slate-400 dark:text-slate-500">
+                                <x-ui.icon name="image" class="h-5 w-5" />
+                            </div>
+                        @endif
+
+                        <input id="site-favicon" type="file" wire:model="favicon" accept="image/*" class="sr-only">
+                    </label>
+                    <div wire:loading wire:target="favicon" class="mt-1 text-xs text-slate-400 dark:text-slate-500">جارٍ الرفع...</div>
                     @error('favicon') <p class="mt-1.5 text-sm text-red-600">{{ $message }}</p> @enderror
                 </div>
 
                 <div>
                     <label class="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">صورة المدرّس</label>
-                    <input type="file" wire:model="teacher_image" class="block w-full text-sm">
-                    @if ($existingTeacherImage && ! $teacher_image)
-                        <img src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($existingTeacherImage) }}" class="mt-2 h-16 w-16 rounded-full border border-slate-200 dark:border-slate-700 object-cover">
-                    @endif
+                    <label
+                        for="teacher-image"
+                        class="group relative flex h-20 w-20 cursor-pointer items-center justify-center overflow-hidden rounded-full border-2 border-dashed border-slate-300 bg-slate-50 transition hover:border-indigo-400 hover:bg-indigo-50/50 dark:border-slate-600 dark:bg-slate-900/30 dark:hover:border-indigo-500 dark:hover:bg-indigo-900/10"
+                    >
+                        @if ($teacher_image)
+                            <img src="{{ $teacher_image->temporaryUrl() }}" class="absolute inset-0 h-full w-full object-cover">
+                        @elseif ($existingTeacherImage)
+                            <img src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($existingTeacherImage) }}" class="absolute inset-0 h-full w-full object-cover">
+                        @endif
+
+                        @if ($teacher_image || $existingTeacherImage)
+                            <div class="absolute inset-0 flex items-center justify-center bg-slate-900/0 opacity-0 transition group-hover:bg-slate-900/50 group-hover:opacity-100">
+                                <span class="rounded-lg bg-white/90 px-2 py-1 text-[11px] font-medium text-slate-700">تغيير</span>
+                            </div>
+                        @else
+                            <div class="flex flex-col items-center gap-1 text-slate-400 dark:text-slate-500">
+                                <x-ui.icon name="image" class="h-5 w-5" />
+                            </div>
+                        @endif
+
+                        <input id="teacher-image" type="file" wire:model="teacher_image" accept="image/*" class="sr-only">
+                    </label>
+                    <div wire:loading wire:target="teacher_image" class="mt-1 text-xs text-slate-400 dark:text-slate-500">جارٍ الرفع...</div>
                     @error('teacher_image') <p class="mt-1.5 text-sm text-red-600">{{ $message }}</p> @enderror
                 </div>
             </div>
@@ -149,10 +207,30 @@
 
                 <div>
                     <label class="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">صورة الصيانة (اختياري)</label>
-                    <input type="file" wire:model="maintenance_image" class="block w-full text-sm">
-                    @if ($existingMaintenanceImage && ! $maintenance_image)
-                        <img src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($existingMaintenanceImage) }}" class="mt-2 h-16 rounded border border-slate-200 dark:border-slate-700 object-contain">
-                    @endif
+                    <label
+                        for="maintenance-image"
+                        class="group relative flex h-24 cursor-pointer items-center justify-center overflow-hidden rounded-xl border-2 border-dashed border-slate-300 bg-slate-50 transition hover:border-indigo-400 hover:bg-indigo-50/50 dark:border-slate-600 dark:bg-slate-900/30 dark:hover:border-indigo-500 dark:hover:bg-indigo-900/10"
+                    >
+                        @if ($maintenance_image)
+                            <img src="{{ $maintenance_image->temporaryUrl() }}" class="absolute inset-0 h-full w-full object-contain p-2">
+                        @elseif ($existingMaintenanceImage)
+                            <img src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($existingMaintenanceImage) }}" class="absolute inset-0 h-full w-full object-contain p-2">
+                        @endif
+
+                        @if ($maintenance_image || $existingMaintenanceImage)
+                            <div class="absolute inset-0 flex items-center justify-center bg-slate-900/0 opacity-0 transition group-hover:bg-slate-900/50 group-hover:opacity-100">
+                                <span class="rounded-lg bg-white/90 px-3 py-1.5 text-xs font-medium text-slate-700">تغيير الصورة</span>
+                            </div>
+                        @else
+                            <div class="flex flex-col items-center gap-1.5 text-slate-400 dark:text-slate-500">
+                                <x-ui.icon name="image" class="h-6 w-6" />
+                                <span class="text-xs font-medium">اضغط لاختيار صورة</span>
+                            </div>
+                        @endif
+
+                        <input id="maintenance-image" type="file" wire:model="maintenance_image" accept="image/*" class="sr-only">
+                    </label>
+                    <div wire:loading wire:target="maintenance_image" class="mt-1 text-xs text-slate-400 dark:text-slate-500">جارٍ الرفع...</div>
                     @error('maintenance_image') <p class="mt-1.5 text-sm text-red-600">{{ $message }}</p> @enderror
                 </div>
             </div>

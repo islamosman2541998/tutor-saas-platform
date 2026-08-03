@@ -3,8 +3,8 @@
 @endphp
 
 <div>
-    <h1 class="mb-1 text-xl font-bold login-title">تسجيل الدخول</h1>
-    <p class="mb-6 text-sm login-text">{{ $currentTenant->teacher_name ?? '' }}</p>
+    <h1 class="mb-5 text-xl text-center text-white font-bold login-heading">تسجيل الدخول</h1>
+    {{-- <p class="mb-6 text-sm login-text">{{ $currentTenant->teacher_name ?? '' }}</p> --}}
 
     @if (session('status'))
         <div class="mb-4 rounded-lg bg-emerald-50 px-3.5 py-2.5 text-sm text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400">{{ session('status') }}</div>

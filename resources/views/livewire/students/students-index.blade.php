@@ -143,14 +143,30 @@
 
             <div>
                 <label class="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">صورة الطالب (اختياري)</label>
-                <input type="file" wire:model="image" accept="image/*" class="block w-full text-sm text-slate-600 dark:text-slate-400">
-                @error('image') <p class="mt-1.5 text-sm text-red-600">{{ $message }}</p> @enderror
+                <label
+                    for="student-image"
+                    class="group relative flex h-20 w-20 cursor-pointer items-center justify-center overflow-hidden rounded-full border-2 border-dashed border-slate-300 bg-slate-50 transition hover:border-indigo-400 hover:bg-indigo-50/50 dark:border-slate-600 dark:bg-slate-900/30 dark:hover:border-indigo-500 dark:hover:bg-indigo-900/10"
+                >
+                    @if ($image)
+                        <img src="{{ $image->temporaryUrl() }}" class="absolute inset-0 h-full w-full object-cover">
+                    @elseif ($existingImagePath)
+                        <img src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($existingImagePath) }}" class="absolute inset-0 h-full w-full object-cover">
+                    @endif
+
+                    @if ($image || $existingImagePath)
+                        <div class="absolute inset-0 flex items-center justify-center bg-slate-900/0 opacity-0 transition group-hover:bg-slate-900/50 group-hover:opacity-100">
+                            <span class="rounded-lg bg-white/90 px-2 py-1 text-[11px] font-medium text-slate-700">تغيير</span>
+                        </div>
+                    @else
+                        <div class="flex flex-col items-center gap-1 text-slate-400 dark:text-slate-500">
+                            <x-ui.icon name="image" class="h-5 w-5" />
+                        </div>
+                    @endif
+
+                    <input id="student-image" type="file" wire:model="image" accept="image/*" class="sr-only">
+                </label>
                 <div wire:loading wire:target="image" class="mt-1 text-xs text-slate-400 dark:text-slate-500">جارٍ الرفع...</div>
-                @if ($image)
-                    <img src="{{ $image->temporaryUrl() }}" class="mt-2 h-16 w-16 rounded-full object-cover">
-                @elseif ($existingImagePath)
-                    <img src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($existingImagePath) }}" class="mt-2 h-16 w-16 rounded-full object-cover">
-                @endif
+                @error('image') <p class="mt-1.5 text-sm text-red-600">{{ $message }}</p> @enderror
             </div>
 
             <div>

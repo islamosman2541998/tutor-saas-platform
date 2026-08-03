@@ -1,5 +1,5 @@
 <div>
-    <h1 class="mb-1 text-xl font-bold login-title">نسيت كلمة المرور؟</h1>
+    <h1 class="mb-1 text-xl font-bold login-heading">نسيت كلمة المرور؟</h1>
     <p class="mb-6 text-sm login-text">أدخل بريدك الإلكتروني وسنرسل لك رابط إعادة التعيين.</p>
 
     @if ($status)

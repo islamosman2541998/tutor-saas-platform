@@ -36,6 +36,10 @@ class LoginPageAppearanceForm extends Component
 
     public string $title_color = '#0f172a';
 
+    public string $brand_name_color = '#0f172a';
+
+    public string $heading_color = '#0f172a';
+
     public string $text_color = '#475569';
 
     public string $label_color = '#334155';
@@ -90,6 +94,8 @@ class LoginPageAppearanceForm extends Component
             $this->shadow_style = $settings->shadow_style;
             $this->theme_mode = $settings->theme_mode;
             $this->title_color = $settings->title_color;
+            $this->brand_name_color = $settings->brand_name_color;
+            $this->heading_color = $settings->heading_color;
             $this->text_color = $settings->text_color;
             $this->label_color = $settings->label_color;
             $this->input_bg_color = $settings->input_bg_color;
@@ -123,6 +129,8 @@ class LoginPageAppearanceForm extends Component
             'shadow_style' => ['required', 'in:none,soft,medium,strong'],
             'theme_mode' => ['required', 'in:light,dark,user_choice'],
             'title_color' => ['required', 'string', 'max:20'],
+            'brand_name_color' => ['required', 'string', 'max:20'],
+            'heading_color' => ['required', 'string', 'max:20'],
             'text_color' => ['required', 'string', 'max:20'],
             'label_color' => ['required', 'string', 'max:20'],
             'input_bg_color' => ['required', 'string', 'max:20'],

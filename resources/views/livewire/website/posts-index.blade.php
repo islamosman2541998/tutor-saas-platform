@@ -95,10 +95,30 @@
 
             <div>
                 <label class="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">صورة الغلاف (اختياري)</label>
-                <input type="file" wire:model="image" class="block w-full text-sm">
-                @if ($existingImage && ! $image)
-                    <img src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($existingImage) }}" class="mt-2 h-16 rounded border border-slate-200 dark:border-slate-700 object-cover">
-                @endif
+                <label
+                    for="post-image"
+                    class="group relative flex h-32 cursor-pointer items-center justify-center overflow-hidden rounded-xl border-2 border-dashed border-slate-300 bg-slate-50 transition hover:border-indigo-400 hover:bg-indigo-50/50 dark:border-slate-600 dark:bg-slate-900/30 dark:hover:border-indigo-500 dark:hover:bg-indigo-900/10"
+                >
+                    @if ($image)
+                        <img src="{{ $image->temporaryUrl() }}" class="absolute inset-0 h-full w-full object-cover">
+                    @elseif ($existingImage)
+                        <img src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($existingImage) }}" class="absolute inset-0 h-full w-full object-cover">
+                    @endif
+
+                    @if ($image || $existingImage)
+                        <div class="absolute inset-0 flex items-center justify-center bg-slate-900/0 opacity-0 transition group-hover:bg-slate-900/50 group-hover:opacity-100">
+                            <span class="rounded-lg bg-white/90 px-3 py-1.5 text-xs font-medium text-slate-700">تغيير الصورة</span>
+                        </div>
+                    @else
+                        <div class="flex flex-col items-center gap-1.5 text-slate-400 dark:text-slate-500">
+                            <x-ui.icon name="image" class="h-6 w-6" />
+                            <span class="text-xs font-medium">اضغط لاختيار صورة</span>
+                        </div>
+                    @endif
+
+                    <input id="post-image" type="file" wire:model="image" accept="image/*" class="sr-only">
+                </label>
+                <div wire:loading wire:target="image" class="mt-1 text-xs text-slate-400 dark:text-slate-500">جارٍ الرفع...</div>
                 @error('image') <p class="mt-1.5 text-sm text-red-600">{{ $message }}</p> @enderror
             </div>
 

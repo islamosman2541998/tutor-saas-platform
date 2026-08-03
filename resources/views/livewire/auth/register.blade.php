@@ -1,5 +1,5 @@
 <div>
-    <h1 class="mb-1 text-xl font-bold login-title">إنشاء حسابك كمدرس</h1>
+    <h1 class="mb-1 text-xl font-bold login-heading">إنشاء حسابك كمدرس</h1>
     <p class="mb-6 text-sm login-text">ابدأ إدارة دروسك الخصوصية في دقائق</p>
 
     <form wire:submit="register" class="space-y-4">

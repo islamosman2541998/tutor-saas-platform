@@ -283,7 +283,7 @@
                                 >
                                     {{ mb_substr(auth()->user()->name, 0, 1) }}
                                 </span>
-                                <span class="hidden max-w-[10rem] truncate text-sm font-medium sm:block" style="color: var(--dash-text);">
+                                <span class="hidden max-w-[10rem] truncate text-sm font-medium sm:block" style="color: var(--dash-primary);">
                                     {{ auth()->user()->name }}
                                 </span>
                                 <x-ui.icon

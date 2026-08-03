@@ -118,7 +118,7 @@
                         </div>
 
                         <div>
-                            <p class="mb-2 px-3 text-xs font-semibold tracking-wide text-slate-400 dark:text-slate-500">إدارة الدروس</p>
+                            <p class="mb-2 px-3 text-xs font-semibold tracking-wide" style="color: var(--dash-sidebar-label);">إدارة الدروس</p>
                             <div class="space-y-1">
                                 <x-ui.nav-link href="{{ route('tenant.students', ['tenant' => $currentTenant->slug]) }}" icon="users" :active="request()->routeIs('tenant.students*')">
                                     الطلاب
@@ -133,7 +133,7 @@
                         </div>
 
                         <div>
-                            <p class="mb-2 px-3 text-xs font-semibold tracking-wide text-slate-400 dark:text-slate-500">المالية</p>
+                            <p class="mb-2 px-3 text-xs font-semibold tracking-wide" style="color: var(--dash-sidebar-label);">المالية</p>
                             <div class="space-y-1">
                                 <x-ui.nav-link href="{{ route('tenant.dues', ['tenant' => $currentTenant->slug]) }}" icon="banknotes" :active="request()->routeIs('tenant.dues*')">
                                     المستحقات الشهرية
@@ -148,7 +148,7 @@
                         </div>
 
                         <div>
-                            <p class="mb-2 px-3 text-xs font-semibold tracking-wide text-slate-400 dark:text-slate-500">التقارير</p>
+                            <p class="mb-2 px-3 text-xs font-semibold tracking-wide" style="color: var(--dash-sidebar-label);">التقارير</p>
                             <div class="space-y-1">
                                 <x-ui.nav-link href="{{ route('tenant.reports', ['tenant' => $currentTenant->slug]) }}" icon="book" :active="request()->routeIs('tenant.reports*')">
                                     التقارير والتصدير
@@ -157,7 +157,7 @@
                         </div>
 
                         <div>
-                            <p class="mb-2 px-3 text-xs font-semibold tracking-wide text-slate-400 dark:text-slate-500">الموقع التعريفي</p>
+                            <p class="mb-2 px-3 text-xs font-semibold tracking-wide" style="color: var(--dash-sidebar-label);">الموقع التعريفي</p>
                             <div class="space-y-1">
                                 <x-ui.nav-link href="{{ route('tenant.website-settings', ['tenant' => $currentTenant->slug]) }}" icon="building" :active="request()->routeIs('tenant.website-settings*')">
                                     إعدادات الموقع
@@ -187,7 +187,7 @@
                         </div>
 
                         <div>
-                            <p class="mb-2 px-3 text-xs font-semibold tracking-wide text-slate-400 dark:text-slate-500">المظهر</p>
+                            <p class="mb-2 px-3 text-xs font-semibold tracking-wide" style="color: var(--dash-sidebar-label);">المظهر</p>
                             <div class="space-y-1">
                                 <x-ui.nav-link href="{{ route('tenant.appearance.dashboard', ['tenant' => $currentTenant->slug]) }}" icon="building" :active="request()->routeIs('tenant.appearance.dashboard*')">
                                     مظهر لوحة التحكم
@@ -200,7 +200,7 @@
 
                         @if (auth()->user()->can('users.manage') || auth()->user()->can('activity.view'))
                             <div>
-                                <p class="mb-2 px-3 text-xs font-semibold tracking-wide text-slate-400 dark:text-slate-500">الفريق</p>
+                                <p class="mb-2 px-3 text-xs font-semibold tracking-wide" style="color: var(--dash-sidebar-label);">الفريق</p>
                                 <div class="space-y-1">
                                     @can('users.manage')
                                         <x-ui.nav-link href="{{ route('tenant.users', ['tenant' => $currentTenant->slug]) }}" icon="users" :active="request()->routeIs('tenant.users*')">
@@ -217,7 +217,7 @@
                         @endif
 
                         <div>
-                            <p class="mb-2 px-3 text-xs font-semibold tracking-wide text-slate-400 dark:text-slate-500">الإعدادات الأكاديمية</p>
+                            <p class="mb-2 px-3 text-xs font-semibold tracking-wide" style="color: var(--dash-sidebar-label);">الإعدادات الأكاديمية</p>
                             <div class="space-y-1">
                                 <x-ui.nav-link href="{{ route('tenant.academic-years', ['tenant' => $currentTenant->slug]) }}" icon="calendar" :active="request()->routeIs('tenant.academic-years')">
                                     السنوات الدراسية
@@ -261,7 +261,8 @@
                     <button
                         type="button"
                         onclick="toggleTheme()"
-                        class="rounded-full p-2 text-slate-500 transition hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-700"
+                        class="rounded-full p-2 transition hover:bg-slate-100 dark:hover:bg-slate-700"
+                        style="color: var(--dash-icon-color);"
                         aria-label="تبديل الوضع الليلي/النهاري"
                     >
                         <x-ui.icon name="moon" class="h-5 w-5 dark:hidden" />
@@ -273,7 +274,8 @@
                             <button
                                 @click="open = !open"
                                 @click.outside="open = false"
-                                class="flex items-center gap-2 rounded-full py-1 pe-1 ps-1.5 transition hover:bg-slate-100 dark:hover:bg-slate-700 sm:pe-2.5"
+                                class="flex items-center gap-2 rounded-full py-1 pe-1 ps-1.5 transition hover:brightness-95 sm:pe-2.5"
+                                style="background: var(--dash-page-bg);"
                             >
                                 <span
                                     class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-xs font-bold text-white"
@@ -281,7 +283,7 @@
                                 >
                                     {{ mb_substr(auth()->user()->name, 0, 1) }}
                                 </span>
-                                <span class="hidden max-w-[10rem] truncate text-sm font-medium text-slate-700 dark:text-slate-200 sm:block">
+                                <span class="hidden max-w-[10rem] truncate text-sm font-medium sm:block" style="color: var(--dash-text);">
                                     {{ auth()->user()->name }}
                                 </span>
                                 <x-ui.icon

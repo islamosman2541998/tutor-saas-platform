@@ -32,6 +32,10 @@ class DashboardAppearanceForm extends Component
 
     public string $text_color = '#1e293b';
 
+    public string $dark_mode_icon_color = '#64748b';
+
+    public string $sidebar_label_color = '#94a3b8';
+
     public string $border_radius = '16';
 
     public string $sidebar_size = 'normal';
@@ -66,6 +70,8 @@ class DashboardAppearanceForm extends Component
             $this->page_bg_color = $settings->page_bg_color;
             $this->card_bg_color = $settings->card_bg_color;
             $this->text_color = $settings->text_color;
+            $this->dark_mode_icon_color = $settings->dark_mode_icon_color;
+            $this->sidebar_label_color = $settings->sidebar_label_color;
             $this->border_radius = (string) $settings->border_radius;
             $this->sidebar_size = $settings->sidebar_size;
             $this->theme_mode = $settings->theme_mode;
@@ -90,6 +96,8 @@ class DashboardAppearanceForm extends Component
         $this->page_bg_color = $defaults->page_bg_color;
         $this->card_bg_color = $defaults->card_bg_color;
         $this->text_color = $defaults->text_color;
+        $this->dark_mode_icon_color = $defaults->dark_mode_icon_color;
+        $this->sidebar_label_color = $defaults->sidebar_label_color;
         $this->border_radius = (string) $defaults->border_radius;
         $this->sidebar_size = $defaults->sidebar_size;
         $this->theme_mode = $defaults->theme_mode;
@@ -109,6 +117,8 @@ class DashboardAppearanceForm extends Component
             'page_bg_color' => ['required', 'string', 'max:20'],
             'card_bg_color' => ['required', 'string', 'max:20'],
             'text_color' => ['required', 'string', 'max:20'],
+            'dark_mode_icon_color' => ['required', 'string', 'max:20'],
+            'sidebar_label_color' => ['required', 'string', 'max:20'],
             'border_radius' => ['required', 'integer', 'min:0', 'max:32'],
             'sidebar_size' => ['required', 'in:compact,normal,wide'],
             'theme_mode' => ['required', 'in:light,dark,user_choice'],

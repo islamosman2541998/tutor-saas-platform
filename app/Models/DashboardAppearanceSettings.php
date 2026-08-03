@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Storage;
 
 #[Fillable([
     'primary_color', 'secondary_color', 'sidebar_bg_color', 'sidebar_text_color', 'sidebar_active_color',
-    'topbar_color', 'page_bg_color', 'card_bg_color', 'text_color', 'border_radius',
+    'topbar_color', 'page_bg_color', 'card_bg_color', 'text_color', 'dark_mode_icon_color', 'sidebar_label_color', 'border_radius',
     'sidebar_size', 'theme_mode', 'logo_full', 'logo_mini', 'favicon',
 ])]
 class DashboardAppearanceSettings extends Model
@@ -72,6 +72,8 @@ class DashboardAppearanceSettings extends Model
             '--dash-page-bg' => $this->page_bg_color,
             '--dash-card-bg' => $this->card_bg_color,
             '--dash-text' => $this->text_color,
+            '--dash-icon-color' => $this->dark_mode_icon_color,
+            '--dash-sidebar-label' => $this->sidebar_label_color,
             '--dash-radius' => "{$this->border_radius}px",
         ];
     }
@@ -93,6 +95,8 @@ class DashboardAppearanceSettings extends Model
             'page_bg_color' => '#f8fafc',
             'card_bg_color' => '#ffffff',
             'text_color' => '#1e293b',
+            'dark_mode_icon_color' => '#64748b',
+            'sidebar_label_color' => '#94a3b8',
             'border_radius' => 16,
             'sidebar_size' => 'normal',
             'theme_mode' => 'light',

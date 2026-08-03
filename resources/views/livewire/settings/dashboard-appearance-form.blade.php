@@ -17,7 +17,9 @@
                     @foreach ([
                         'primary_color' => 'الأساسي', 'secondary_color' => 'الثانوي',
                         'sidebar_bg_color' => 'خلفية الشريط الجانبي', 'sidebar_text_color' => 'نص الشريط الجانبي', 'sidebar_active_color' => 'العنصر النشط',
+                        'sidebar_label_color' => 'تسميات مجموعات القائمة الجانبية',
                         'topbar_color' => 'الشريط العلوي (موبايل)', 'page_bg_color' => 'خلفية الصفحة', 'card_bg_color' => 'خلفية البطاقات', 'text_color' => 'النص العام',
+                        'dark_mode_icon_color' => 'أيقونة الوضع الليلي/النهاري',
                     ] as $field => $label)
                         <div>
                             <label class="mb-1.5 block text-xs font-medium text-slate-700 dark:text-slate-300">{{ $label }}</label>
@@ -157,6 +159,7 @@
                         {{-- Mini sidebar --}}
                         <div class="w-24 shrink-0 p-2" style="background: {{ $sidebar_bg_color }};">
                             <div class="mb-3 h-4 w-14 rounded" style="background: {{ $primary_color }};"></div>
+                            <p class="mb-1 px-1 text-[7px] font-semibold uppercase tracking-wide" style="color: {{ $sidebar_label_color }};">إدارة الدروس</p>
                             <div class="space-y-1.5">
                                 <div class="rounded px-2 py-1.5 text-[9px] font-medium" style="background: {{ $sidebar_active_color }}; color: #fff; border-radius: {{ max(0, (int) $border_radius - 8) }}px;">
                                     الرئيسية
@@ -169,7 +172,10 @@
 
                         {{-- Main area --}}
                         <div class="flex-1 p-3">
-                            <div class="mb-3 h-6 rounded" style="background: {{ $topbar_color }}; border-radius: {{ max(0, (int) $border_radius - 8) }}px;"></div>
+                            <div class="mb-3 flex h-6 items-center justify-end gap-1.5 rounded px-1.5" style="background: {{ $topbar_color }}; border-radius: {{ max(0, (int) $border_radius - 8) }}px;">
+                                <span class="h-2.5 w-2.5 rounded-full" style="background: {{ $dark_mode_icon_color }};"></span>
+                                <span class="h-3.5 w-9 rounded-full" style="background: {{ $page_bg_color }};"></span>
+                            </div>
 
                             <div class="space-y-2 rounded-lg p-3 shadow-sm" style="background: {{ $card_bg_color }}; border-radius: {{ $border_radius }}px;">
                                 <p class="text-[10px] font-bold" style="color: {{ $text_color }};">بطاقة تجريبية</p>
